@@ -49,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
 
 
+    // pre-built
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception{
 
