@@ -1,10 +1,10 @@
 package com.example.officey.service;
 
 import com.example.officey.config.JwtUtil;
-import com.example.officey.model.Comment;
+//import com.example.officey.model.Comment;
 import com.example.officey.model.User;
-import com.example.officey.model.UserRole;
-import com.example.officey.repository.CommentRepository;
+//import com.example.officey.model.UserRole;
+//import com.example.officey.repository.CommentRepository;
 import com.example.officey.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,18 +23,17 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    UserRoleService userRoleService;
-
-    @Autowired
-    SongService songService;
-
-    @Autowired
-    SongRepository songRepository;
+//    @Autowired
+//    UserRoleService userRoleService;
+//
+//    @Autowired
+//    SongService songService;
+//
+//    @Autowired
+//    SongRepository songRepository;
 
     @Autowired
     JwtUtil jwtUtil;
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -50,7 +49,8 @@ public class UserServiceImpl implements UserService {
     private List<GrantedAuthority> getGrantedAuthorities(User user){
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        authorities.add(new SimpleGrantedAuthority(user.getUserRole().getName()));
+        //        authorities.add(new SimpleGrantedAuthority(user.getUserRole().getName()));
+        authorities.add(new SimpleGrantedAuthority(user.getUsername()));
 
         return authorities;
     }
@@ -67,8 +67,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String createUser(User newUser) {
-        UserRole userRole = userRoleService.getRole(newUser.getUserRole().getName());
-        newUser.setUserRole(userRole);
+//        UserRole userRole = userRoleService.getRole(newUser.getUserRole().getName());
+//        newUser.setUserRole(userRole);
         newUser.setPassword(newUser.getPassword());
         if(userRepository.save(newUser) != null){
             UserDetails userDetails = loadUserByUsername(newUser.getUsername());
@@ -88,17 +88,17 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    @Override
-    public User addComment(String name, int commentId) {
-        Comment comment = commentRepository.findById(commentId).get();
-        User user = getUser(name);
-        user.addComment(comment);
+//    @Override
+//    public User addComment(String name, int commentId) {
+//        Comment comment = commentRepository.findById(commentId).get();
+//        User user = getUser(name);
+//        user.addComment(comment);
+//
+//        return userRepository.save(user);
+//    }
 
-        return userRepository.save(user);
-    }
-
     @Override
-    public HttpStatus deleteById(Long userId){
+    public HttpStatus deleteUserById(Long userId){
         userRepository.deleteById(userId);
         return HttpStatus.OK;
     }
