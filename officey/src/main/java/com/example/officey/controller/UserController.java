@@ -27,7 +27,7 @@ public class UserController {
 
     // Can only the admin see the list of all users?
     // We'll think about this more later
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    // @PreAuthorize("hasRole('ROLE_ADMIN')") <-- this line caused an error. Will fix later
     @GetMapping("/user/list")
     public Iterable<User> listUsers() {
         return userService.listUsers();
