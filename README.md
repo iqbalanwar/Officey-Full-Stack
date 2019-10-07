@@ -2,8 +2,8 @@
 Officey, but now featuring a back-end!
 
 # Team Members
-Iqbal Anwar (@<a href = "https://github.com/iqbalanwar">iqbalanwar</a>)<br/>
-Santiago Ulloa (@<a href="https://github.com/sulloa13">sulloa13</a>)<br/>
+- Iqbal Anwar (@<a href = "https://github.com/iqbalanwar">iqbalanwar</a>)<br/>
+- Santiago Ulloa (@<a href="https://github.com/sulloa13">sulloa13</a>)<br/>
   
 # Design Decisions
 <img alt = "database structure" src="./repo_images/erd.PNG"/><br/>
