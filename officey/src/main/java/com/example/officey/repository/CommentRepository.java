@@ -1,4 +1,7 @@
 package com.example.officey.repository;
 
-public interface CommentRepository {
+import com.example.officey.model.Comment;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CommentRepository extends CrudRepository<Comment, Long> {
 }

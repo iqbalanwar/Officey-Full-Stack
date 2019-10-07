@@ -27,7 +27,7 @@ public class User {
     private String password;
 
     @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_profile_id")
     private UserProfile userProfile;
 
     public User() {}
