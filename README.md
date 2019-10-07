@@ -13,7 +13,7 @@ Using Lucid Chart...
 
 | Day            | 1 - Friday                                           | 2 - Monday                                           | 3 - Tuesday                                         | 4 - Wednesday                                       |5 - Friday                                           |
 |----------------|--------------------------------------|----------------------------------------------|-----------------------------------------------------|-------------------------------------------------------|------|
-| Goals  | Get a user signup/login to work</br>Set up post/comment tables | Get the post/comment to work on postman</br>Set up user profile |  | |
+| Goals  | - Get a user signup/login to work</br>- Set up post/comment tables | - Get the post/comment to work on postman</br>- Set up user profile | Work on Front-End of signup/login | |
 | Task Completed  | User signup/login |   |  |   |  |
 | To Do List  | Set up post/comment tables |   |  |   |  |
 
