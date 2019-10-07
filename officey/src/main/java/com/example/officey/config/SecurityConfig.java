@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/signup/**", "/login/**").permitAll()
-                .antMatchers("/user/**", "/profile/**", "/song/**").authenticated()
+                .antMatchers("/user/**", "/profile/**", "/post/**").authenticated()
                 .and()
                 .httpBasic();
 
@@ -50,12 +50,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 
     // pre-built
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception{
-
-        User.UserBuilder users = User.withDefaultPasswordEncoder();
-        auth.inMemoryAuthentication().withUser(users.username("test").password("test").roles("ADMIN"));
-        auth.inMemoryAuthentication().withUser(users.username("dba").password("dba").roles("DBA"));
-    }
+//    @Override
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception{
+//
+//        User.UserBuilder users = User.withDefaultPasswordEncoder();
+//        auth.inMemoryAuthentication().withUser(users.username("test").password("test").roles("ADMIN"));
+//        auth.inMemoryAuthentication().withUser(users.username("dba").password("dba").roles("DBA"));
+//    }
 
 }
