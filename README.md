@@ -6,8 +6,7 @@ Iqbal Anwar (@<a href = "https://github.com/iqbalanwar">iqbalanwar</a>)<br/>
 Santiago Ulloa (@<a href="https://github.com/sulloa13">sulloa13</a>)<br/>
   
 # Design Decisions
-Using Lucid Chart...
-
+<img alt = "database structure" src="./repo_images/erd.PNG"/><br/>
 
 # Completions
 
