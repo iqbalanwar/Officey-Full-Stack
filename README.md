@@ -12,9 +12,9 @@ Officey, but now featuring a back-end!
 
 | Day            | 1 - Friday                                           | 2 - Monday                                           | 3 - Tuesday                                         | 4 - Wednesday                                       |5 - Friday                                           |
 |----------------|--------------------------------------|----------------------------------------------|-----------------------------------------------------|-------------------------------------------------------|------|
-| Goals  | - Get a user signup/login to work</br>- Set up post/comment tables | - Get the post/comment to work on postman</br>- Set up user profile | Work on Front-End of signup/login | |
-| Task Completed  | User signup/login |   |  |   |  |
-| To Do List  | Set up post/comment tables |   |  |   |  |
+| Goals  | Get a user signup/login to work</br>Set up post/comment tables | Get the post/comment to work on postman</br>Set up user profile | Work on Front-End of signup/login | |
+| Task Completed  | User signup/login | Posts to work on postman</br>Set up user profile |  |   |  |
+| To Do List  | Set up post/comment tables | Comments/Testing/Front-end |  |   |  |
 
 # Challenges
 
