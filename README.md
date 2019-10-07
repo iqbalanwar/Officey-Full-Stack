@@ -6,7 +6,7 @@ Officey, but now featuring a back-end!
 - Santiago Ulloa (@<a href="https://github.com/sulloa13">sulloa13</a>)<br/>
   
 # Design Decisions
-<img alt = "database structure" src="./repo_images/erd.PNG"/><br/>
+<img alt = "database structure" src="./repo_images/erd_v2.PNG"/><br/>
 
 # Completions
 
