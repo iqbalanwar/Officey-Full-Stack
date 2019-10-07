@@ -1,6 +1,7 @@
 package com.example.officey.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -25,7 +26,13 @@ public class User {
     @Column
     private String password;
 
+    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
+    @JoinColumn(name = "user_id")
+    private UserProfile userProfile;
+
     public User() {}
+
+
 
 //    // Do we need roles? Not necessarily...
 //    @ManyToOne(cascade = {CascadeType.DETACH,
