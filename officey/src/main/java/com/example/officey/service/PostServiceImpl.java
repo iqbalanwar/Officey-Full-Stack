@@ -48,15 +48,12 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public String deletePostByIdInDB(Long postId) {
-
         String username = securityController.getCurrentUserName();
-
         if(postRepository.findById(postId).get().getUser().getUsername().equals(username)) {
             postRepository.deleteById(postId);
             return "Post has been deleted";
         } else {
             return "THIS IS NOT YOUR POST TO DELETE";
         }
-
     }
 }

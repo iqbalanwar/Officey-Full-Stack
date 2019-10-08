@@ -1,5 +1,6 @@
 package com.example.officey.service;
 
+import com.example.officey.controller.SecurityController;
 import com.example.officey.model.Comment;
 import com.example.officey.model.Post;
 import com.example.officey.model.User;
@@ -20,19 +21,29 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     PostRepository postRepository;
 
+    @Autowired
+    SecurityController securityController;
+
     @Override
-    public Comment createCommentInDB(Comment newComment, String username, Long postId) {
-        User user = userRepository.findByUsername(username);
+    public Comment createCommentInDB(Comment newComment, Long postId) {
+        User user = userRepository.findByUsername(securityController.getCurrentUserName());
         newComment.setUser(user);
 
         Post post = postRepository.findById(postId).get();
         newComment.setPost(post);
+
         return commentRepository.save(newComment);
     }
 
     @Override
     public Iterable<Comment> listComments() {
         return commentRepository.findAll();
+    }
+
+    @Override
+    public Iterable<Comment> listCommentsOfUser() {
+        Long userId = userRepository.findByUsername(securityController.getCurrentUserName()).getId();
+        return commentRepository.findCommentsByUserId(userId);
     }
 
     @Override
