@@ -4,7 +4,7 @@ import com.example.officey.model.Comment;
 import com.example.officey.model.Post;
 
 public interface CommentService {
-    public Comment createCommentInDB(Comment comment, Long postId, String username);
+    public Comment createCommentInDB(Comment newComment, String username, Long postId);
 
     public Iterable<Comment> listComments();
 

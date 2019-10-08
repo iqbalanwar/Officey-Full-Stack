@@ -23,8 +23,10 @@ public class UserProfile {
     private String address;
 
 
-    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
-    @JoinColumn(name = "user_id")
+    @OneToOne(mappedBy = "userProfile",
+            cascade = {CascadeType.DETACH, CascadeType.MERGE,
+                    CascadeType.REFRESH, CascadeType.PERSIST})
+//    @JoinColumn(name = "user_id")
     private User user;
 
     public UserProfile() {}

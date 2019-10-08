@@ -7,15 +7,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
 public class CommentController {
     @Autowired
     CommentService commentService;
 
-    @PostMapping("comment/{username}/{postId}/")
-    public Comment createComment(@RequestBody Comment comment, @PathVariable String username, @PathVariable Long postId){
-        return commentService.createCommentInDB(comment, postId, username);
+    @PostMapping("/{username}/{postId}/comment")
+    public Comment createComment(@PathVariable("username") String username, @PathVariable("postId") Long postId, @RequestBody Comment comment){
+        return commentService.createCommentInDB(comment, username, postId);
     }
+
     @GetMapping("comment/list")
     public Iterable<Comment>listComments(){
         return commentService.listComments();

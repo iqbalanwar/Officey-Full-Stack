@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         // authorities.add(new SimpleGrantedAuthority(user.getUserRole().getName()));
-        authorities.add(new SimpleGrantedAuthority("USER"));
+        // authorities.add(new SimpleGrantedAuthority("USER"));
         authorities.add(new SimpleGrantedAuthority(user.getUsername()));
 
         return authorities;
@@ -88,15 +88,6 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
-
-//    @Override
-//    public User addComment(String name, int commentId) {
-//        Comment comment = commentRepository.findById(commentId).get();
-//        User user = getUser(name);
-//        user.addComment(comment);
-//
-//        return userRepository.save(user);
-//    }
 
     @Override
     public HttpStatus deleteUserById(Long userId){

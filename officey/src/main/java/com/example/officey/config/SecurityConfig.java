@@ -42,7 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                 .antMatchers("/signup/**", "/login/**").permitAll()
                 // .antMatchers("/user/**", "/profile/**", "/post/**").authenticated()
-                .antMatchers("/user/**", "/profile/**", "/post/**").hasRole("USER")
+                //.antMatchers("/user/**", "/profile/**", "/post/**", "/comment/**").hasRole("USER")
+                .antMatchers("/user/**", "/profile/**", "/post/**", "/comment/**","/{username}/**").authenticated()
                 .and()
                 .httpBasic();
 

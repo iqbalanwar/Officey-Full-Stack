@@ -16,6 +16,9 @@ public class PostController {
         return postService.createPostInDB(post, username);
     }
 
+//    @GetMapping("/post/{postId}")
+//    public Post getSinglePost(@PathVariable Long postId) { return postService.getSinglePost(postId); }
+
     @GetMapping("post/list")
     public Iterable<Post> listPostsToUser() {
         return postService.listPosts();

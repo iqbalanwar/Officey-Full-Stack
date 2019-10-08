@@ -28,6 +28,11 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAll();
     }
 
+//    @Override
+//    public Post getSinglePost(Long postId) {
+//        return postRepository.findPostById(postId);
+//    }
+
     @Override
     public String deletePostByIdInDB(Long postId) {
         postRepository.deleteById(postId);

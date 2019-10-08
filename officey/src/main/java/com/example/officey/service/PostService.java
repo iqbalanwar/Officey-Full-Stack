@@ -8,5 +8,7 @@ public interface PostService {
 
     public Iterable<Post> listPosts();
 
+//    public Post getSinglePost(Long postId);
+
     public String deletePostByIdInDB(Long postId);
 }

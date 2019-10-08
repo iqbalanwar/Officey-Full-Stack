@@ -21,14 +21,13 @@ public class CommentServiceImpl implements CommentService {
     PostRepository postRepository;
 
     @Override
-    public Comment createCommentInDB(Comment comment, Long postId, String username) {
+    public Comment createCommentInDB(Comment newComment, String username, Long postId) {
         User user = userRepository.findByUsername(username);
-        comment.setUser(user);
+        newComment.setUser(user);
 
-        Post post = postRepository.findPostById(postId);
-        comment.setPost(post);
-
-        return commentRepository.save(comment);
+        Post post = postRepository.findById(postId).get();
+        newComment.setPost(post);
+        return commentRepository.save(newComment);
     }
 
     @Override
