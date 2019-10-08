@@ -11,12 +11,12 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-    @PostMapping("/{postId}/comment")
+    @PostMapping("/comment/{postId}")
     public Comment createComment(@PathVariable("postId") Long postId, @RequestBody Comment comment){
         return commentService.createCommentInDB(comment, postId);
     }
 
-    @GetMapping("/{postId}/comment")
+    @GetMapping("/comment/{postId}")
     public Iterable<Comment> listCommentsFromAPost(@PathVariable Long postId) {
         return commentService.listCommentsFromAPost(postId);
     }

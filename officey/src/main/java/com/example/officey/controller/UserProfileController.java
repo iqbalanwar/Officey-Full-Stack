@@ -15,7 +15,7 @@ public class UserProfileController {
         this.userProfileService = userProfileService;
     }
 
-    @GetMapping("/get")
+    @GetMapping
     public UserProfile getUserProfile() {
         return userProfileService.getUserProfile();
     }
