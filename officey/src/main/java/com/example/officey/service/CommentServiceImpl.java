@@ -47,6 +47,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public Iterable<Comment> listCommentsFromAPost(Long postId) {
+        return commentRepository.findCommentsFromAPost(postId);
+    }
+
+    @Override
     public String deleteCommentByIdInDB(Long commentId) {
         commentRepository.deleteById(commentId);
         return "Comment has been deleted";

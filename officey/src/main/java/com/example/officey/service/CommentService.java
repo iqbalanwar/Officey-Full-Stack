@@ -10,5 +10,7 @@ public interface CommentService {
 
     public Iterable<Comment> listCommentsOfUser();
 
+    public Iterable<Comment> listCommentsFromAPost(Long postId);
+
     public String deleteCommentByIdInDB(Long postId);
 }
