@@ -12,6 +12,8 @@ import java.util.List;
 public interface PostRepository extends CrudRepository<Post, Long> {
 //    @Query(" {'user' : ?0} ")
 //    public List<Post> findPostsByUser(User user);
+    @Query("FROM posts p WHERE p.user_id = ?0")
+    public List<Post> findPostsByUserId(Long userId);
 
 //    @Query(" {'id' : ?0} ")
 //    @Query("SELECT * FROM posts WHERE id = ?0")

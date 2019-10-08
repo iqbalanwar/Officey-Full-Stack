@@ -11,9 +11,9 @@ public class PostController {
     @Autowired
     PostService postService;
 
-    @PostMapping("/{username}/post")
-    public Post userCreatePost(@RequestBody Post post, @PathVariable String username) {
-        return postService.createPostInDB(post, username);
+    @PostMapping("/post")
+    public Post userCreatePost(@RequestBody Post post) {
+        return postService.createPostInDB(post);
     }
 
 //    @GetMapping("/post/{postId}")

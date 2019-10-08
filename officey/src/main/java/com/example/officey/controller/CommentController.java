@@ -11,13 +11,18 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-    @PostMapping("/{username}/{postId}/comment")
-    public Comment createComment(@PathVariable("username") String username, @PathVariable("postId") Long postId, @RequestBody Comment comment){
-        return commentService.createCommentInDB(comment, username, postId);
+    @PostMapping("/{postId}/comment")
+    public Comment createComment(@PathVariable("postId") Long postId, @RequestBody Comment comment){
+        return commentService.createCommentInDB(comment, postId);
+    }
+
+    @GetMapping("/{postId}/comment")
+    public Iterable<Comment> listCommentsFromAPost(@PathVariable Long postId) {
+        return commentService.listCommentsFromAPost(postId);
     }
 
     @GetMapping("comment/list")
-    public Iterable<Comment>listComments(){
+    public Iterable<Comment> listComments(){
         return commentService.listComments();
     }
 

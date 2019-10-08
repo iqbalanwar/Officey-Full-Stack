@@ -15,13 +15,13 @@ public class UserProfileController {
         this.userProfileService = userProfileService;
     }
 
-    @GetMapping("/{username}")
-    public UserProfile getUserProfile(@PathVariable String username) {
-        return userProfileService.getUserProfile(username);
+    @GetMapping
+    public UserProfile getUserProfile() {
+        return userProfileService.getUserProfile();
     }
 
-    @PostMapping("/{username}")
-    public UserProfile createUserProfile(@PathVariable String username, @RequestBody UserProfile userProfile) {
-        return userProfileService.createUserProfile(username, userProfile);
+    @PostMapping
+    public UserProfile createUserProfile(@RequestBody UserProfile userProfile) {
+        return userProfileService.createUserProfile(userProfile);
     }
 }
