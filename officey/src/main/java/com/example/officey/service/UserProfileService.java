@@ -4,9 +4,9 @@ import com.example.officey.model.UserProfile;
 
 public interface UserProfileService {
 
-    public UserProfile createUserProfile(String username, UserProfile newProfile);
+    public UserProfile createUserProfile(UserProfile newProfile);
 
-    public UserProfile getUserProfile(String username);
+    public UserProfile getUserProfile();
 }
 
 //update userProfile fields

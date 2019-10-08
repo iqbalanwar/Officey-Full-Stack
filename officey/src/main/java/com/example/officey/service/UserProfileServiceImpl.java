@@ -1,5 +1,6 @@
 package com.example.officey.service;
 
+import com.example.officey.controller.SecurityController;
 import com.example.officey.model.User;
 import com.example.officey.model.UserProfile;
 import com.example.officey.repository.UserProfileRepository;
@@ -15,15 +16,18 @@ public class UserProfileServiceImpl implements UserProfileService{
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    SecurityController securityController;
+
     @Override
-    public UserProfile createUserProfile(String username, UserProfile newProfile) {
-        User user = userRepository.findByUsername(username);
+    public UserProfile createUserProfile(UserProfile newProfile) {
+        User user = userRepository.findByUsername(securityController.getCurrentUserName());
         newProfile.setUser(user);
         return userProfileRepository.save(newProfile);
     }
 
     @Override
-    public UserProfile getUserProfile(String username) {
-        return userProfileRepository.findProfileByUsername(username);
+    public UserProfile getUserProfile() {
+        return userProfileRepository.findProfileByUsername(securityController.getCurrentUserName());
     }
 }
