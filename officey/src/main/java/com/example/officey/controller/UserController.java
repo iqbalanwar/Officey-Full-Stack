@@ -33,16 +33,6 @@ public class UserController {
         return userService.listUsers();
     }
 
-//    @PutMapping("/user/{username}/{postId}")
-//    public User addPost(@PathVariable String username, @PathVariable int postId) {
-//        return userService.addPost(username, postId);
-//    }
-//
-//    @PutMapping("/user/{username}/{commentId}")
-//    public User addComment(@PathVariable String username, @PathVariable int commentId) {
-//        return userService.addComment(username, commentId);
-//    }
-
     @DeleteMapping("/user/{userId}")
     public HttpStatus deleteUserById(@PathVariable Long userId) {
         return userService.deleteUserById(userId);

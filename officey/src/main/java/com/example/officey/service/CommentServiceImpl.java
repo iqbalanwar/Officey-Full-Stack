@@ -48,7 +48,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Iterable<Comment> listCommentsFromAPost(Long postId) {
-        return commentRepository.findCommentsFromAPost(postId);
+        return commentRepository.findByPostId(postId);
     }
 
     @Override
