@@ -1,0 +1,77 @@
+body{
+  color: white;
+  background-color: darkslategrey;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    font-size: 3rem;
+    font-weight: bold;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    font-family: 'Be Vietnam', sans-serif;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+header {
+  padding-bottom: 120px;
+  /* background-color: white; */
+  /* background: url("../images/grapefarm.jpeg"); */
+  background: darkslategrey;
+  background-size: cover;
+  color: white;
+  text-align: center;
+  flex-direction: column;
+  display: flex;
+}
+
+header>h1 {
+    /* font-family: Pacifico, sans-serif; */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12rem;
+    align-items: center;
+    justify-content: center;
+    padding-top: 15%;
+    /* text-shadow: 2px 2px #ff0000; */
+}
+
+.navbar a {
+    text-decoration: none !important;
+    color: white;
+}
+
+input[type="text"] {
+  font-size: 20px;
+}
+
+input[type="password"] {
+  font-size: 20px;
+}
+
+label {
+  font-size: 20px;
+}
+
+.container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.container-left{
+width: 400px;
+}
+
+.container-right{
+  width: 400px;
+}
+.submit{
+  display: block;
+}
+
+.loginSubmit{
+  display: block;
+}
