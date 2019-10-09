@@ -1,9 +1,8 @@
 .navbar {
     display: flex;
     justify-content: space-around;
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
-    position: fixed;
     top: 0;
     width: 100%;
     font-family: 'Courier New', Courier, monospace;
@@ -43,11 +42,6 @@ header>h1 {
   flex-direction: row;
 }
 
-.inputContainer{
-  width: 200px;
-  margin-left: 10px;
-}
-
 .profile{
   margin-left: 10px;
 }
@@ -63,4 +57,27 @@ body{
 }
 .updatebutton{
   background-color: grey;
+}
+
+.inputContainer {
+    width: 150px;
+    background: rgba(0,0,0,0.4);
+    padding: 0 2rem 1rem 2rem;
+    border: 5px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
+    display: flex;
+    margin-left: 100px;
+    margin-top: 10%;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.userPosts{
+  margin-left: 200px;
+  margin-top: 100px;
+}
+
+.postsTitle{
+  font-size: 2rem;
 }
