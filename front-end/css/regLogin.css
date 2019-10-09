@@ -54,6 +54,7 @@ input[type="password"] {
 
 label {
   font-size: 20px;
+  margin-top: 10px;
 }
 
 .container{
@@ -65,15 +66,13 @@ label {
 
 .container-left{
 width: 400px;
+margin-right: 100px;
 }
 
 .container-right{
   width: 400px;
 }
-.submit{
-  display: block;
-}
 
-.loginSubmit{
+button {
   display: block;
 }
