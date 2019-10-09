@@ -23,11 +23,15 @@ public class UserProfileServiceImpl implements UserProfileService{
     public UserProfile createUserProfile(UserProfile newProfile) {
         User user = userRepository.findByUsername(securityController.getCurrentUserName());
         newProfile.setUser(user);
+        user.setUserProfile(newProfile);
         return userProfileRepository.save(newProfile);
     }
 
     @Override
     public UserProfile getUserProfile() {
-        return userProfileRepository.findProfileByUsername(securityController.getCurrentUserName());
+        User username = userRepository.findByUsername(securityController.getCurrentUserName());
+        return username.getUserProfile();
+//        userProfileRepository.findById()
+//        return userProfileRepository.findProfileByUsername(securityController.getCurrentUserName());
     }
 }

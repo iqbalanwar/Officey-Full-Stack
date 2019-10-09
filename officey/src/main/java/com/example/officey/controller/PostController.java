@@ -20,9 +20,12 @@ public class PostController {
 //    public Post getSinglePost(@PathVariable Long postId) { return postService.getSinglePost(postId); }
 
     @GetMapping("post/list")
-    public Iterable<Post> listPostsToUser() {
+    public Iterable<Post> listAllPostsToUser() {
         return postService.listPosts();
     }
+
+    @GetMapping("post/user/list")
+    public Iterable<Post> listOnlyUserPosts() { return postService.listPostsOfUser(); }
 
     @DeleteMapping("post/{postId}")
     public String deletePostById(@PathVariable Long postId) {

@@ -35,6 +35,7 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAll();
     }
 
+    @Override
     public Iterable<Post> listPostsOfUser() {
         String username = securityController.getCurrentUserName();
         Long userId = userRepository.findByUsername(username).getId();
