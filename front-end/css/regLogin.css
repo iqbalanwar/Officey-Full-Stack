@@ -1,5 +1,6 @@
 body{
   color: white;
+  font-family: 'Courier New', Courier, monospace;
   background-color: darkslategrey;
 }
 
@@ -11,7 +12,7 @@ body{
     position: fixed;
     top: 0;
     width: 100%;
-    font-family: 'Be Vietnam', sans-serif;
+    font-family: 'Courier New', Courier, monospace;
     padding-top: 20px;
     padding-bottom: 20px;
 }
@@ -56,6 +57,7 @@ label {
 }
 
 .container{
+  font-family: 'Courier New', Courier, monospace;
   display: flex;
   flex-direction: row;
   justify-content: center;

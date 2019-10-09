@@ -1,1 +1,66 @@
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    font-size: 3rem;
+    font-weight: bold;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    font-family: 'Courier New', Courier, monospace;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
 
+header {
+  /* background-color: white; */
+  /*background: url("../images/prison_mike.png"); */
+  background-size: cover;
+  color: white;
+  text-align: center;
+  flex-direction: column;
+  display: flex;
+}
+
+header>h1 {
+    /* font-family: Pacifico, sans-serif; */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12rem;
+    align-items: center;
+    justify-content: center;
+    padding-top: 15%;
+    /* text-shadow: 2px 2px #ff0000; */
+}
+
+.navbar a {
+    text-decoration: none !important;
+    color: white;
+}
+
+.mainContainer{
+  font-family: 'Courier New', Courier, monospace;
+  color: white;
+  display: flex;
+  flex-direction: row;
+}
+
+.inputContainer{
+  width: 200px;
+  margin-left: 10px;
+}
+
+.profile{
+  margin-left: 10px;
+}
+
+body{
+  background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url("../images/prison_mike.png");
+
+}
+
+.profile{
+  font-family: 'Courier New', Courier, monospace;
+  color: white;
+}
+.updatebutton{
+  background-color: grey;
+}
