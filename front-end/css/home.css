@@ -26,6 +26,10 @@ body {
     color: red;
 }
 
+.topOfPage{ 
+  color: white;
+  text-align: center;;
+}
 .container {
   background-color: white;
   width: 500px;
