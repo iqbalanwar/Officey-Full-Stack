@@ -1,45 +1,22 @@
 function checkLogin() {
     if (localStorage.getItem('user') != null) {
-        // Edit navbar a loginstatus
-        // Say welcome!
-        const navItem = document.querySelector('nav').lastElementChild;
+        const navBar = document.querySelector('nav');
+        const navItem = navBar.lastElementChild;
         navItem.innerText = "Welcome, " + localStorage.getItem('username');
+        navItem.href = "home.html";
 
-        // navItem.style.display = "none";
+        const logout = document.createElement('a');
+        logout.innerText = "Log Out";
+        logout.addEventListener("click", removeUserInfo);
+        navBar.appendChild(logout);
+    }
+}
 
-        // const welcomeUser = document.createElement('div');
-        // welcomeUser.innerText = `Welcome "${localStorage.getItem('username')}"`;
-        // document.querySelector('.navbar').append(welcomeUser);
-
-        // const dropdown = document.createElement('div');
-        // dropdown.classList.add("dropdown");
-        // const logoutButton = document.createElement('button');
-        // logoutButton.classList.add("dropbtn");
-        // const dropdownContent = document.createElement('div')
-        // dropdownContent.classList.add("dropdown-content");
-        // const signOut = document.createElement('a');
-        // signOut.classList.add("sign-out");
-        // signOut.innerText = "Sign out"
-        // // const logoutButton = document.querySelector('.sign-out');
-        // // logoutButton.innerText = "Log out";
-        // dropdownContent.append(signOut);
-        // dropdown.append(logoutButton, dropdownContent);
-        // document.querySelector('.navbar').append(dropdown);
-
-
-        // signOut.addEventListener('click', () => {
-        //     localStorage.removeItem('user');
-        //     localStorage.removeItem('username');
-
-        //     document.querySelector('.dropdown').style.display = "none";
-
-        //     aTag.style.display = "block";
-
-        //     window.location.reload(false);
-        // });
-
-
-        // dropdown.append(logoutButton);
+function removeUserInfo() {
+    if (confirm("Are you sure you want to log out?")) {
+        localStorage.removeItem('user');
+        localStorage.removeItem('username');
+        window.location.href = "index.html";
     }
 }
 
@@ -136,7 +113,6 @@ function loginUser() {
         })
 }
 
-
 /*============================= POSTS AND COMMENTS ON HOME PAGE =============================*/
 
 if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == "home.html") {
@@ -151,6 +127,9 @@ if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/')
     console.log("You're in the landing page!");
     checkLogin();
 }
+
+
+
 
 
 

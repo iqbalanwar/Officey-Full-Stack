@@ -1,26 +1,37 @@
-* {
-  background: #2c2c2c;
-}
 body {
   display: flex;
-  flex-direction: column;    
+  flex-direction: column;
+  background-color: #2c2c2c;   
 }
 
 .navbar {
     display: flex;
     justify-content: space-around;
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
-    position: fixed;
+    /* MAKE IT SO THAT WHEN YOU SCROLL DOWN, IT'S FIXED
+    position: fixed; */
     top: 0;
     width: 100%;
+    text-align: center;
     font-family: 'Courier New', Courier, monospace;
     margin-top: 40px;
     margin-bottom: 20px;
-    border-bottom: 1px solid black;
+    /* MAKE IT SO THAT WHEN YOU SCROLL DOWN, THE BACKGROUND COLOR TRANSITIONS TO SOMETHING ELSE
+    border-bottom: 1px solid black; */
 }
 
 .navbar a {
     text-decoration: none !important;
-    color: white;
+    color: red;
+}
+
+.container {
+  background-color: white;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
 }
