@@ -21,6 +21,11 @@ public class CommentController {
         return commentService.listCommentsFromAPost(postId);
     }
 
+    @GetMapping("/comment/user/list")
+    public Iterable<Comment> listCommentsOfUser() {
+        return commentService.listCommentsOfUser();
+    }
+
     @GetMapping("comment/list")
     public Iterable<Comment> listComments(){
         return commentService.listComments();
