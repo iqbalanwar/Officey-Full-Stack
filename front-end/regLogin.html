@@ -1,49 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
   <head>
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="css/regLogin.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-      integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-  </head>
-
   <body>
-
     <header>
       <nav class="navbar">
-        <a href="index.html">Home</a>
-        <a href="regLogin.html">Login/Sign Up</a>
+          <a href="index.html">Home</a>
+          <a href="profile.html">Profile</a>
+          <a href="regLogin.html">Login/Sign Up</a>
       </nav>
     </header>
-
     <div class="container">
         <div class="container-left">
-          <h1>Log in</h1>
-          <p>Please fill out the information to log in.</p>
+          <h1>Register</h1>
+          <p>Please fill in this form to create an account.</p>
           <form>
             <label for="username"><b>Username</b></label>
-            <input class="loginUsername"type="text" placeholder="Enter Username" name="username" required>
+            <input class="username"type="text" placeholder="Enter Username" name="username" required>
             <label for="psw"><b>Password</b></label>
-            <input class="loginPassword" type="password" placeholder="Enter Password" name="psw" required>
-            <button class="loginSubmit" type="button" name="button">Submit</button>
+            <input class="password" type="password" placeholder="Enter Password" name="psw" required>
+            <button class="submit" type="button" name="button">Submit</button>
           </form>
         </div>
         <div class="container-right">
-          <h1>Register</h1>
-          <p>Please fill in this form to create an account.</p>
+          <h1>Log in</h1>
+          <p>Please fill out the information to log in.</p>
           <label for="uname"><b>Username</b></label>
-          <input class = "username"type="text" placeholder="Enter Username" name="uname" required>
+          <input class = "loginusername"type="text" placeholder="Enter Username" name="uname" required>
           <label for="psw"><b>Password</b></label>
-          <input class="password" type="password" placeholder="Enter Password" name="psw" required>
-          <label><b>Re-enter Password</b></label>
-          <input class="checkPassword" type="password" placeholder="Re-enter Password" required>
-          <button class="submit" type="button" name="button">Submit</button>
-        </form>
-      </div>
-
-    <script src="js/app.js" lang="js"></script>
+          <input class ="loginPassword"type="password" placeholder="Enter Password" name="psw" required>
+          <button class = "loginSubmit"type="submit">Login</button>
+          <script src="js/app.js" lang="js"></script>
+        </div>
   </body>
-
 </html>
