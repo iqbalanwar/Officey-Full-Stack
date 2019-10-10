@@ -4,6 +4,7 @@ import com.example.officey.model.Comment;
 import com.example.officey.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,7 +33,7 @@ public class CommentController {
     }
 
     @DeleteMapping("comment/{commentId}")
-    public String deleteCommentById(@PathVariable Long commentId) {
+    public ResponseEntity deleteCommentById(@PathVariable Long commentId) {
         return commentService.deleteCommentByIdInDB(commentId);
     }
 }

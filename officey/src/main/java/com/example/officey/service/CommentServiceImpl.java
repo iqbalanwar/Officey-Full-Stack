@@ -8,6 +8,8 @@ import com.example.officey.repository.CommentRepository;
 import com.example.officey.repository.PostRepository;
 import com.example.officey.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -52,16 +54,16 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public String deleteCommentByIdInDB(Long commentId) {
+    public ResponseEntity deleteCommentByIdInDB(Long commentId) {
 
 
         // This is the current user:
         String username = securityController.getCurrentUserName();
         if(commentRepository.findById(commentId).get().getUser().getUsername().equals(username)) {
             commentRepository.deleteById(commentId);
-            return "Comment has been deleted";
+            return new ResponseEntity(HttpStatus.ACCEPTED);
         } else {
-            return "THIS IS NOT YOUR COMMENT TO DELETE";
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
 }
