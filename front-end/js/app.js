@@ -119,7 +119,40 @@ function loginUser() {
 if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == "home.html") {
     console.log("You're in the home page!");
     checkLogin();
+    document.querySelector('.postSubmit').addEventListener("click", makePost);
     postToHome();
+}
+// TAKES USER INPUT
+// CALLS A FUNCTION TO POST IT IN THE DOM (postToLanding())
+// SUBMIT BUTTON FROM /LANDING.HTML TAKEN
+function makePost(event) {
+    event.preventDefault();
+    const title = document.querySelector('.postTitle').value;
+    const post = document.querySelector('.postField').value;
+
+    fetch("http://localhost:8080/post", {
+        method: 'POST',
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem('user'),
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            title: title,
+            description: post
+        })
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((res) => {
+            window.location.reload(false);
+        })
+        .then((res) => {
+            postToHome(res);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
 }
 
 // PUTS USER INPUT INTO A LIST ITEM
@@ -184,7 +217,7 @@ function postToHome() {
                         .then((res) => {
                             // WHY IS IT NOT TAKING POST ID?
                             if (res.status === 200) {
-                                // window.location.reload(false);
+                                window.location.reload(false);
                                 alert("success");
                             } else {
                                 alert("Please delete only your own posts.");
@@ -209,7 +242,6 @@ function postToHome() {
 // function deletePost(postId) {
 
 //     // SO, THIS FUNCTION IS WORKING. YOU CAN DELETE
-//     // HOWEVER, YOU STILL GET AN ASYNC ERROR
 //     fetch((`http://localhost:8080/post/${postId}`), {
 //         method: 'DELETE',
 //         headers: {

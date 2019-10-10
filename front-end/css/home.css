@@ -24,7 +24,12 @@ body {
 
 .navbar a {
     text-decoration: none !important;
-    /* color: white; */
+    color: white;
+}
+
+input {
+  padding-left: 5px;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .container {
@@ -34,10 +39,33 @@ body {
   display: flex;
   flex-direction: column;
   margin: auto;
+  margin: 0 auto;
+  width: 30%;
+}
+.postTitle {
+  height: 35px;
+
+}
+.postField{
+  height: 100px;
+}
+.postSubmit{
+  font-family: 'Courier New', Courier, monospace;
+  height: 35px;
+}
+.postField::placeholder{
+  font-size: 20px;
+  padding: 5px 0 5px 5px;
+  font-family: 'Courier New', Courier, monospace;
 }
 .makeAPost>h2 {
   text-align: center;
 
+}
+
+li{
+  color: black;
+  margin: 0;
 }
 
 .posts {
@@ -49,10 +77,10 @@ body {
 }
 .allPosts {
   background-color: white;
-  width: 800px;
+  width: 600px;
   height: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: auto;
+  margin: 0 60px 0 20px;
 }
