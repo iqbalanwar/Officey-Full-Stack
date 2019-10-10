@@ -6,7 +6,7 @@ function checkLogin() {
         navItem.href = "home.html";
 
         const logout = document.createElement('a');
-        logout.href = "";
+        logout.href = "#";
         logout.innerText = "Log Out";
         logout.addEventListener("click", removeUserInfo);
         navBar.appendChild(logout);
@@ -119,8 +119,56 @@ function loginUser() {
 if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == "home.html") {
     console.log("You're in the home page!");
     checkLogin();
+    postToLanding();
 }
 
+// PUTS USER INPUT INTO A LIST ITEM
+// CREATES A FORM FIELD FOR COMMENTS INTO THE LIST ITEM
+// GET THE COMMENTS FOR THE POST
+// Posts our post to landing lol
+function postToLanding() {
+
+    fetch("http://localhost:8080/post/list", {
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem('user'),
+            'Content-Type': 'application/json'
+        }
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((res) => {
+            const list = document.querySelector('.allPosts');
+
+            for (let i = 0; i < res.length; i++) {
+                // CREATE AN ITEM, WITH H3 AND P TAGS
+                const item = document.createElement('li');
+
+                item.classList.add("post");
+                item.id = `${res[i].id}`;
+
+                const title = document.createElement('h3');
+                title.classList.add("postTitle");
+
+                const postingUser = document.createElement('h3');
+                postingUser.classList.add("username");
+
+                const post = document.createElement('p');
+                post.classList.add("postText");
+
+                title.innerText = `Title: ${res[i].title}`;
+                post.innerText = res[i].description;
+                postingUser.innerText = `Post by: ${res[i].user.username}`;
+
+                item.append(title, post, postingUser);
+                list.append(item);
+            }
+
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
 
 /*============================= POSTS AND COMMENTS ON PROFILE PAGE =============================*/
 
