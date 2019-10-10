@@ -54,29 +54,26 @@ function registerUser() {
             password: checkPasswords()
         })
     })
-        .then(function(res) {
-            if (res.status === 500) {
-                alert("Username is taken");
-            }
-        })
-        // CHECK IF USER EXISTS? IF YES, POST ERROR
-        // ALSO REFRESH TO LANDING PAGE
+        // .then(function(res) {
+        //     if (res.status === 500) {
+        //         alert("Username is taken");
+        //     }
+        // })
         .then(res => {
-            return res.json();
+            if (res.status == 500) {
+                alert("Username is taken");
+            } else {
+                return res.json();
+            }
         })
         .then(res => {
             localStorage.setItem('user', res.token);
             if (res.token) { // DO I GET A RESPONSE? IF YES:
                 window.location.href = "home.html";
             }
-            // makePost();
         })
-        // .then(function(res) {
-        //     if (res.status === 400) {
-        //         alert("Username is taken");
-        //     }
-        // })
         .catch((error) => {
+            
             console.log(error);
         })
 }
