@@ -61,9 +61,9 @@ public class CommentServiceImpl implements CommentService {
         String username = securityController.getCurrentUserName();
         if(commentRepository.findById(commentId).get().getUser().getUsername().equals(username)) {
             commentRepository.deleteById(commentId);
-            return new ResponseEntity(HttpStatus.ACCEPTED);
+            return new ResponseEntity(HttpStatus.valueOf(200));
         } else {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(HttpStatus.valueOf(405));
         }
     }
 }

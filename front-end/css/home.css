@@ -63,11 +63,6 @@ input {
 
 }
 
-li{
-  color: black;
-  margin: 0;
-}
-
 .posts {
   margin: auto;
 }
@@ -83,4 +78,8 @@ li{
   flex-direction: column;
   justify-content: center;
   margin: 0 60px 0 20px;
+  color: black;
+}
+.allPosts>div {
+  padding-left: 20px;
 }

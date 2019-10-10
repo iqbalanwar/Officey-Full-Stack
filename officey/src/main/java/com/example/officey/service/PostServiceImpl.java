@@ -55,7 +55,7 @@ public class PostServiceImpl implements PostService {
             postRepository.deleteById(postId);
             return new ResponseEntity(HttpStatus.valueOf(200));
         } else {
-            return new ResponseEntity(HttpStatus.valueOf(204));
+            return new ResponseEntity(HttpStatus.valueOf(405));
         }
     }
 }

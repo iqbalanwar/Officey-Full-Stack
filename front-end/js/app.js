@@ -175,7 +175,7 @@ function postToHome() {
 
             for (let i = 0; i < res.length; i++) {
                 // CREATE AN ITEM, WITH H3 AND P TAGS
-                const postItem = document.createElement('li');
+                const postItem = document.createElement('div');
 
                 postItem.classList.add("post");
                 postItem.id = `${res[i].id}`;
