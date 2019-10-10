@@ -54,11 +54,6 @@ function registerUser() {
             password: checkPasswords()
         })
     })
-        // .then(function(res) {
-        //     if (res.status === 500) {
-        //         alert("Username is taken");
-        //     }
-        // })
         .then(res => {
             if (res.status == 500) {
                 alert("Username is taken");
@@ -176,7 +171,6 @@ function postToHome() {
 
                 postItem.classList.add("post");
                 postItem.id = `${res[i].id}`;
-                postId = `${res[i].id}`;
 
                 const title = document.createElement('h3');
                 title.classList.add("postTitle");
@@ -198,31 +192,9 @@ function postToHome() {
                 deletePostBtn.classList.add("deletePostBtn");
                 deletePostBtn.innerText = "Delete Post";
 
-                deletePostBtn.addEventListener("click", () => {
-
-                    // SO, THIS FUNCTION IS WORKING. YOU CAN DELETE
-                    fetch((`http://localhost:8080/post/${res[i].id}`), {
-                        method: 'DELETE',
-                        headers: {
-                            "Authorization": "Bearer " + localStorage.getItem('user'),
-                            "Content-Type": "application/json"
-                        }
-                    })
-                        // .then((res) => {
-                        //     return res.json()
-                        // })
-                        .then((res) => {
-                            // WHY IS IT NOT TAKING POST ID?
-                            if (res.status === 200) {
-                                window.location.reload(false);
-                                alert("success");
-                            } else {
-                                alert("Please delete only your own posts.");
-                            }
-                        })
-                        .then((error) => {
-                            console.log(error);
-                        })
+                deletePostBtn.addEventListener("click", function(event){
+                    event.preventDefault();
+                    deletePost(postItem.id);
                 });
                 
 
@@ -236,32 +208,32 @@ function postToHome() {
         })
 }
 
-// function deletePost(postId) {
-
-//     // SO, THIS FUNCTION IS WORKING. YOU CAN DELETE
-//     fetch((`http://localhost:8080/post/${postId}`), {
-//         method: 'DELETE',
-//         headers: {
-//             "Authorization": "Bearer " + localStorage.getItem('user'),
-//             "Content-Type": "application/json"
-//         }
-//     })
-//         // .then((res) => {
-//         //     return res.json()
-//         // })
-//         .then((res) => {
-//             // WHY IS IT NOT TAKING POST ID?
-//             if (res.status === 200) {
-//                 // updateComments(listOfComments.id, commentItem.id);
-//                 alert("success");
-//             } else {
-//                 alert("Please delete only your own posts.");
-//             }
-//         })
-//         .then((error) => {
-//             console.log(error);
-//         })
-// }
+function deletePost(postId) {
+    //const postId = event.target.parentNode.id;
+    // SO, THIS FUNCTION IS WORKING. YOU CAN DELETE
+    fetch((`http://localhost:8080/post/${postId}`), {
+        method: 'DELETE',
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem('user'),
+            "Content-Type": "application/json"
+        }
+    })
+        // .then((res) => {
+        //     return res.json()
+        // })
+        .then((res) => {
+            // WHY IS IT NOT TAKING POST ID?
+            if (res.status === 200) {
+                window.location.reload(false);
+                alert("success");
+            } else {
+                alert("Please delete only your own posts.");
+            }
+        })
+        .then((error) => {
+            console.log(error);
+        })
+}
 
 /*============================= POSTS AND COMMENTS ON PROFILE PAGE =============================*/
 
