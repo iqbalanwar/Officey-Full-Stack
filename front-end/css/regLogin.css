@@ -42,12 +42,11 @@ header>h1 {
     color: white;
 }
 
-input[type="text"] {
+input {
   font-size: 20px;
 }
-
-input[type="password"] {
-  font-size: 20px;
+.confirm{
+  padding-left: 12px;
 }
 
 label {
