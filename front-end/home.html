@@ -21,9 +21,18 @@
         </nav>
     </header>
 
-    <h3 class="topOfPage">Kelly's Gossip:</h3>
-
-    <ul class="allPosts"></ul>
+    <div class="container">
+        <div class="makeAPost">
+            <h2>Make a Post</h2>
+            <input class="postTitle" type="text" placeholder="Enter title" name="title"></input>
+            <textarea class="postField" placeholder="Enter Post" rows="4" cols="50"></textarea>
+            <button class="postSubmit" type="button" name="button">Post</button>
+        </div>
+        <div class="posts">
+            <h3 class="topOfPage">Kelly's Gossip:</h3>
+            <ul class="allPosts"></ul>
+        </div>
+    </div>
 
     <script src="js/app.js" lang="js"></script>
 </body>
