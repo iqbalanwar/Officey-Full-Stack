@@ -61,10 +61,10 @@ function registerUser() {
         })
         // CHECK IF USER EXISTS? IF YES, POST ERROR
         // ALSO REFRESH TO LANDING PAGE
-        .then((res) => {
+        .then(res => {
             return res.json();
         })
-        .then((res) => {
+        .then(res => {
             localStorage.setItem('user', res.token);
             if (res.token) { // DO I GET A RESPONSE? IF YES:
                 window.location.href = "home.html";

@@ -17,22 +17,25 @@
           <h1>Register</h1>
           <p>Please fill out this form to create an account.</p>
           <form>
-            <label for="username"><b>Username</b></label>
+            <label for="username"><strong>Username</strong></label>
             <input class="username"type="text" placeholder="Enter Username" name="username" required>
-            <label for="psw"><b>Password</b></label>
+            <label for="psw"><strong>Password</strong></label>
             <input class="password" type="password" placeholder="Enter Password" name="psw" required>
+            <label class="confirm" for="cpsw"><strong>Confirm</strong></label>
+            <input class="checkPassword" type="password" placeholder="Re-enter Password" name="cpsw" required>
             <button class="submit" type="button" name="button">Submit</button>
           </form>
         </div>
         <div class="container-right">
           <h1>Log in</h1>
           <p>Please fill out the information to log in.</p>
-          <label for="uname"><b>Username</b></label>
-          <input class = "loginusername"type="text" placeholder="Enter Username" name="uname" required>
-          <label for="psw"><b>Password</b></label>
+          <label for="uname"><strong>Username</strong></label>
+          <input class = "loginUsername"type="text" placeholder="Enter Username" name="uname" required>
+          <label for="psw"><strong>Password</strong></label>
           <input class ="loginPassword"type="password" placeholder="Enter Password" name="psw" required>
           <button class = "loginSubmit"type="submit">Login</button>
-          <script src="js/app.js" lang="js"></script>
         </div>
+
+        <script src="js/app.js" lang="js"></script>
   </body>
 </html>
