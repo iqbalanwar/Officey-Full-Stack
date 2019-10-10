@@ -7,6 +7,7 @@ import com.example.officey.repository.PostRepository;
 import com.example.officey.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.net.Authenticator;
@@ -48,13 +49,13 @@ public class PostServiceImpl implements PostService {
 //    }
 
     @Override
-    public String deletePostByIdInDB(Long postId) {
+    public ResponseEntity deletePostByIdInDB(Long postId) {
         String username = securityController.getCurrentUserName();
         if(postRepository.findById(postId).get().getUser().getUsername().equals(username)) {
             postRepository.deleteById(postId);
-            return "Post has been deleted";
+            return new ResponseEntity(HttpStatus.ACCEPTED);
         } else {
-            return "THIS IS NOT YOUR POST TO DELETE";
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
 }

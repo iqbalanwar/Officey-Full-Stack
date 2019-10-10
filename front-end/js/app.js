@@ -119,14 +119,14 @@ function loginUser() {
 if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == "home.html") {
     console.log("You're in the home page!");
     checkLogin();
-    postToLanding();
+    postToHome();
 }
 
 // PUTS USER INPUT INTO A LIST ITEM
 // CREATES A FORM FIELD FOR COMMENTS INTO THE LIST ITEM
 // GET THE COMMENTS FOR THE POST
 // Posts our post to landing lol
-function postToLanding() {
+function postToHome() {
 
     fetch("http://localhost:8080/post/list", {
         headers: {
@@ -142,26 +142,62 @@ function postToLanding() {
 
             for (let i = 0; i < res.length; i++) {
                 // CREATE AN ITEM, WITH H3 AND P TAGS
-                const item = document.createElement('li');
+                const postItem = document.createElement('li');
 
-                item.classList.add("post");
-                item.id = `${res[i].id}`;
+                postItem.classList.add("post");
+                postItem.id = `${res[i].id}`;
+                postId = `${res[i].id}`;
 
                 const title = document.createElement('h3');
                 title.classList.add("postTitle");
 
-                const postingUser = document.createElement('h3');
-                postingUser.classList.add("username");
+                // const postingUser = document.createElement('h3');
+                // postingUser.classList.add("username");
 
                 const post = document.createElement('p');
                 post.classList.add("postText");
 
                 title.innerText = `Title: ${res[i].title}`;
                 post.innerText = res[i].description;
-                postingUser.innerText = `Post by: ${res[i].user.username}`;
+                // postingUser.innerText = `Post by: ${res[i].user.username}`;
 
-                item.append(title, post, postingUser);
-                list.append(item);
+
+                // EVERY POST HAS A DELETE BUTTON
+                // BUT SEND AN ERROR IF USER TRIES TO DELETE SOMETHING THAT'S NOT THEIRS
+                const deletePostBtn = document.createElement('button');
+                deletePostBtn.classList.add("deletePostBtn");
+                deletePostBtn.innerText = "Delete Post";
+
+                deletePostBtn.addEventListener("click", () => {
+
+                    // SO, THIS FUNCTION IS WORKING. YOU CAN DELETE
+                    fetch((`http://localhost:8080/post/${res[i].id}`), {
+                        method: 'DELETE',
+                        headers: {
+                            "Authorization": "Bearer " + localStorage.getItem('user'),
+                            "Content-Type": "application/json"
+                        }
+                    })
+                        // .then((res) => {
+                        //     return res.json()
+                        // })
+                        .then((res) => {
+                            // WHY IS IT NOT TAKING POST ID?
+                            if (res.status === 200) {
+                                // window.location.reload(false);
+                                alert("success");
+                            } else {
+                                alert("Please delete only your own posts.");
+                            }
+                        })
+                        .then((error) => {
+                            console.log(error);
+                        })
+                });
+                
+
+                postItem.append(title, post, deletePostBtn);
+                list.append(postItem);
             }
 
         })
@@ -169,6 +205,34 @@ function postToLanding() {
             console.log(error);
         })
 }
+
+// function deletePost(postId) {
+
+//     // SO, THIS FUNCTION IS WORKING. YOU CAN DELETE
+//     // HOWEVER, YOU STILL GET AN ASYNC ERROR
+//     fetch((`http://localhost:8080/post/${postId}`), {
+//         method: 'DELETE',
+//         headers: {
+//             "Authorization": "Bearer " + localStorage.getItem('user'),
+//             "Content-Type": "application/json"
+//         }
+//     })
+//         // .then((res) => {
+//         //     return res.json()
+//         // })
+//         .then((res) => {
+//             // WHY IS IT NOT TAKING POST ID?
+//             if (res.status === 200) {
+//                 // updateComments(listOfComments.id, commentItem.id);
+//                 alert("success");
+//             } else {
+//                 alert("Please delete only your own posts.");
+//             }
+//         })
+//         .then((error) => {
+//             console.log(error);
+//         })
+// }
 
 /*============================= POSTS AND COMMENTS ON PROFILE PAGE =============================*/
 

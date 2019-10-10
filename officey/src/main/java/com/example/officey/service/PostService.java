@@ -2,6 +2,7 @@ package com.example.officey.service;
 
 import com.example.officey.model.Post;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 public interface PostService {
     public Post createPostInDB(Post post);
@@ -12,5 +13,5 @@ public interface PostService {
 
 //    public Post getSinglePost(Long postId);
 
-    public String deletePostByIdInDB(Long postId);
+    public ResponseEntity deletePostByIdInDB(Long postId);
 }

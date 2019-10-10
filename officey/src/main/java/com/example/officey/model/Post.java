@@ -3,6 +3,7 @@ package com.example.officey.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
@@ -22,6 +23,9 @@ public class Post {
         CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(cascade = {CascadeType.ALL})
+    private List<Comment> comments;
 
     public Post() {}
 
@@ -55,5 +59,13 @@ public class Post {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }
