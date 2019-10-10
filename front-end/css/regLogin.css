@@ -1,13 +1,14 @@
 body{
-  color: white;
   font-family: 'Courier New', Courier, monospace;
-  background-color: darkslategrey;
+  background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url("../images/michael_and_jim_office.jpg");
+  background-size: cover;
+
 }
 
 .navbar {
     display: flex;
     justify-content: space-around;
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
     position: fixed;
     top: 0;
@@ -18,11 +19,8 @@ body{
 }
 
 header {
-  padding-bottom: 120px;
   /* background-color: white; */
   /* background: url("../images/grapefarm.jpeg"); */
-  background: darkslategrey;
-  background-size: cover;
   color: white;
   text-align: center;
   flex-direction: column;
@@ -54,25 +52,36 @@ input[type="password"] {
 
 label {
   font-size: 20px;
-  margin-top: 10px;
 }
 
-.container{
-  font-family: 'Courier New', Courier, monospace;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+.container {
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: .5rem;
+    background: rgba(0,0,0,0.4);
+    border: 5px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
+    margin-left: 100px;
+    margin-top: 10%;
+    align-items: center;
+    justify-content: space-between;
+    width: 1000px;
 }
 
 .container-left{
 width: 400px;
-margin-right: 100px;
 }
 
 .container-right{
   width: 400px;
 }
+.submit{
+  display: block;
+}
 
-button {
+.loginSubmit{
   display: block;
 }
