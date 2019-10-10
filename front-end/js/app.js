@@ -168,7 +168,7 @@ function postToHome() {
                 deletePostBtn.classList.add("deletePostBtn");
                 deletePostBtn.innerText = "Delete Post";
 
-                deletePostBtn.addEventListener("click", function() {
+                deletePostBtn.addEventListener("click", () => {
 
                     // SO, THIS FUNCTION IS WORKING. YOU CAN DELETE
                     fetch((`http://localhost:8080/post/${res[i].id}`), {
@@ -184,7 +184,7 @@ function postToHome() {
                         .then((res) => {
                             // WHY IS IT NOT TAKING POST ID?
                             if (res.status === 200) {
-                                // updateComments(listOfComments.id, commentItem.id);
+                                // window.location.reload(false);
                                 alert("success");
                             } else {
                                 alert("Please delete only your own posts.");
