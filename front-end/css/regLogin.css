@@ -1,6 +1,7 @@
 body{
   font-family: 'Courier New', Courier, monospace;
   background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url("../images/michael_and_jim_office.jpg");
+  background-size: cover;
 
 }
 
@@ -20,7 +21,6 @@ body{
 header {
   /* background-color: white; */
   /* background: url("../images/grapefarm.jpeg"); */
-  background-size: cover;
   color: white;
   text-align: center;
   flex-direction: column;
@@ -60,15 +60,15 @@ label {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    padding-bottom: .5rem;
     background: rgba(0,0,0,0.4);
-    padding: 0 2rem 1rem 2rem;
     border: 5px solid rgba(0,0,0,0.1);
     border-radius: 10px;
     margin-left: 100px;
     margin-top: 10%;
     align-items: center;
-    justify-content: space-around;
-    flex-direction: row;
+    justify-content: space-between;
+    width: 1000px;
 }
 
 .container-left{

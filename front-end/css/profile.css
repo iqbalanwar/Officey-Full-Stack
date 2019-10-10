@@ -48,7 +48,7 @@ header>h1 {
 
 body{
   background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url("../images/prison_mike.png");
-
+  background-size: cover;
 }
 
 .profile{
@@ -56,7 +56,7 @@ body{
   color: white;
 }
 .updatebutton{
-  background-color: grey;
+  background-color: white;
 }
 
 .inputContainer {
