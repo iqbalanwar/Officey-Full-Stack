@@ -53,17 +53,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public String deleteCommentByIdInDB(Long commentId) {
-        // if current user = comment user
-        // then delete
-        // otherwise no
 
-//        String username = securityController.getCurrentUserName();
-//        if(postRepository.findById(postId).get().getUser().getUsername().equals(username)) {
-//            postRepository.deleteById(postId);
-//            return "Post has been deleted";
-//        } else {
-//            return "THIS IS NOT YOUR POST TO DELETE";
-//        }
 
         // This is the current user:
         String username = securityController.getCurrentUserName();

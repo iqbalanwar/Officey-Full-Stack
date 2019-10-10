@@ -3,6 +3,7 @@ package com.example.officey.controller;
 import com.example.officey.model.Post;
 import com.example.officey.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,7 +29,7 @@ public class PostController {
     public Iterable<Post> listOnlyUserPosts() { return postService.listPostsOfUser(); }
 
     @DeleteMapping("post/{postId}")
-    public String deletePostById(@PathVariable Long postId) {
+    public ResponseEntity deletePostById(@PathVariable Long postId) {
         return postService.deletePostByIdInDB(postId);
     }
 }
