@@ -142,29 +142,37 @@ function makePost(event) {
     const title = document.querySelector('.postTitle').value;
     const post = document.querySelector('.postField').value;
 
-    fetch("http://localhost:8080/post", {
-        method: 'POST',
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem('user'),
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            title: title,
-            description: post
+    if (title == "" && post == "") {
+        alert("You didn't enter a title or post!")
+    } else if (title == "") {
+        alert("Please enter a title")
+    } else if (post == "") {
+        alert("Please enter a post")
+    } else {
+        fetch("http://localhost:8080/post", {
+            method: 'POST',
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem('user'),
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                title: title,
+                description: post
+            })
         })
-    })
-        .then((res) => {
-            return res.json();
-        })
-        .then((res) => {
-            window.location.reload(false);
-        })
-        .then((res) => {
-            postToHome(res);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((res) => {
+                window.location.reload(false);
+            })
+            .then((res) => {
+                postToHome(res);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
 }
 
 // PUTS USER INPUT INTO A DIV ITEM
@@ -401,13 +409,6 @@ function deleteComment(commentId) {
             console.log(error);
         })
 }
-
-// function updateCommentsInDom(listOfComments, commentId) {
-//     const listComments = document.getElementById(`${listOfComments}`);
-//     const comment = document.querySelector(`#${commentId}`);
-//     listComments.removeChild(comment);
-//     // console.log(comment);
-// }
 
 /* ======================================= POSTS AND COMMENTS ON PROFILE PAGE ======================================= */
 
