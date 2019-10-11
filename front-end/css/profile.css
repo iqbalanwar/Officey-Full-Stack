@@ -69,7 +69,6 @@ body{
     margin-left: 100px;
     margin-top: 10%;
     align-items: center;
-    justify-content: space-around;
     flex-direction: column;
 }
 
@@ -80,4 +79,14 @@ body{
 
 .postsTitle{
   font-size: 2rem;
+}
+
+.allUserPosts{
+  background-color: white;
+  width: 600px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: black;
 }

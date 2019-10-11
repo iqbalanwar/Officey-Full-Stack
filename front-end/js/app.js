@@ -30,7 +30,7 @@ function removeUserInfo() {
 /* ======================================= REGISTRATION AND LOGIN ======================================= */
 
 // Since we're using a single app.js, certain functions can only run on certain pages
-// This does a check of which HTML page you're on, and runs the functions that are only 
+// This does a check of which HTML page you're on, and runs the functions that are only
 // supposed to run on this page
 // EXAMPLE: FOR REGLOGIN, ONLY RUN registerUser AND loginUser
 // Those two functions have other functions nested within them, that they're using
@@ -85,7 +85,7 @@ function registerUser() {
             }
         })
         .catch((error) => {
-            
+
             console.log(error);
         })
 }
@@ -108,7 +108,7 @@ function loginUser() {
     })
 
         // CHECK IF USER EXISTS? IF NO, POST ERROR
-        // ALSO REFRESH TO LANDING PAGE        
+        // ALSO REFRESH TO LANDING PAGE
         .then((res) => {
             return res.json();
         })
@@ -229,9 +229,9 @@ function postToHome() {
                     event.preventDefault();
                     deletePost(postItem.id);
                 });
-                
 
-                // Runs this function, which shows all the comments of a post 
+
+                // Runs this function, which shows all the comments of a post
                 commentsToPost(postItem.id);
                 // CREATE A COMMENT FORM, WITH A TEXT AREA, SUBMIT AND DELETE BUTTONS
                 const commentField = document.createElement('textarea');
@@ -412,11 +412,61 @@ function deleteComment(commentId) {
 
 /* ======================================= POSTS AND COMMENTS ON PROFILE PAGE ======================================= */
 
-if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == "index.html") {
-    console.log("You're in the landing page!");
+if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == "profile.html") {
+    console.log("You're in the profile page!");
     checkLogin();
+    postOnProfile();
 }
 
+function postOnProfile() {
+    fetch("http://localhost:8080/post/user/list", {
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem('user'),
+            "Content-Type": "application.json"
+        }
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((res) => {
+            const list = document.querySelector('.allUserPosts');
+            console.log(list);
+
+            for (let i = (res.length - 1); i > 0; i--) {
+                // CREATE AN ITEM, WITH H3 AND P TAGS
+                const item = document.createElement('div');
+                item.classList.add("userPost");
+                item.id = `user_post_${res[i].id}`;
+                const title = document.createElement('h3');
+                title.classList.add("userPostTitle");
+                const post = document.createElement('p');
+                post.classList.add("userPostText");
+                title.innerText = res[i].title;
+                post.innerText = res[i].description;
+
+                // seeComments(res[i].id);
+
+                // CREATE A COMMENT FORM, WITH A TEXT AREA, SUBMIT AND DELETE BUTTONS
+                //const commentForm = document.createElement('form');
+                // const commentField = document.createElement('textarea');
+                // commentField.classList.add("commentField");
+                // const submitComment = document.createElement('button');
+                // submitComment.classList.add("submitComment");
+                // submitComment.innerText = "Comment";
+                // submitComment.addEventListener('click', function () {
+                //     event.preventDefault();
+                //     createComment(event.target.parentNode.getAttribute('id'));
+                // });
+
+                // ITEM TAKES TITLE, POST, COMMENTFIELD, AND SUBMITCOMMENT
+                item.append(title, post);
+                list.append(item);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
 
 
 
