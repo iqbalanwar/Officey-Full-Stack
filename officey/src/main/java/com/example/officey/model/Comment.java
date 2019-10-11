@@ -1,5 +1,7 @@
 package com.example.officey.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,14 +15,15 @@ public class Comment {
     @Column
     private String description;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.PERSIST,
             CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.PERSIST,
             CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "post_id")
+    @JsonBackReference
     private Post post;
 
     public Comment() {}

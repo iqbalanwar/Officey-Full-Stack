@@ -8,9 +8,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 @Entity
 @Table(name = "users")
 public class User {
@@ -31,12 +28,6 @@ public class User {
     private UserProfile userProfile;
 
     public User() {}
-
-//    // Do we need roles? Not necessarily...
-//    @ManyToOne(cascade = {CascadeType.DETACH,
-//            CascadeType.MERGE, CascadeType.REFRESH})
-//    @JoinColumn(name = "user_role_id", nullable = false)
-//    private UserRole userRole;
 
     public Long getId() {
         return id;
