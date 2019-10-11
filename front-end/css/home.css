@@ -6,6 +6,8 @@ body {
   font-family: 'Courier New', Courier, monospace;
   background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url("../images/office_meeting.jpg");
   background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .navbar {
@@ -68,18 +70,19 @@ input {
 .posts {
   margin: auto;
 }
+
 .topOfPage{
   /* color: white; */
   text-align: center;;
 }
+
 .allPosts {
   overflow-y: auto;
-  max-height: 100vh;
   background-color: white;
   width: 600px;
-  height: 100%;
+  height:600px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: center;
   margin: 0 60px 0 20px;
   color: black;
