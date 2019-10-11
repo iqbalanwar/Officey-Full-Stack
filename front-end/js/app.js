@@ -228,7 +228,7 @@ function deletePost(postId) {
             // WHY IS IT NOT TAKING POST ID?
             if (res.status === 200) {
                 window.location.reload(false);
-                prompt("success, deleted post");
+                alert("success, deleted post");
             } else {
                 alert("Please delete only your own posts.");
             }
@@ -311,18 +311,18 @@ function commentsToPost(postId) {
 
                 // EVERY COMMENT HAS A DELETE BUTTON
                 // BUT SEND AN ERROR IF USER TRIES TO DELETE A COMMENT THAT'S NOT THEIRS
-                const deleteComment = document.createElement('button');
-                deleteComment.classList.add("deleteComment");
-                deleteComment.innerText = "Delete Comment";
+                const deleteCommentBtn = document.createElement('button');
+                deleteCommentBtn.classList.add("deleteCommentBtn");
+                deleteCommentBtn.innerText = "Delete Comment";
 
-                commentItem.append(commentDescription, deleteComment);
+                commentItem.append(commentDescription, deleteCommentBtn);
 
                 listOfComments.append(commentItem);
 
                 // The following variable exists only to pass in the
                 // comment id to the delete
                 const commentId = res[i].id;
-                deleteComment.addEventListener("click", function(event) {
+                deleteCommentBtn.addEventListener("click", function(event) {
                     event.preventDefault();
                     deleteComment(commentId);
                 });
@@ -349,7 +349,7 @@ function deleteComment(commentId) {
             if (res.status === 200) {
                 //updateComments(listOfComments.id, commentItem.id);
                 window.location.reload(false);
-                prompt("success, deleted comment!");
+                alert("success, deleted comment!");
             } else {
                 alert("Please delete only your own comments.");
             }
