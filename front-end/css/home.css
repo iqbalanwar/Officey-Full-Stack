@@ -1,9 +1,11 @@
 body {
   display: flex;
   flex-direction: column;
-  background-color: #2c2c2c;   
+  background-color: #2c2c2c;
   color: white;
   font-family: 'Courier New', Courier, monospace;
+  background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url("../images/office_meeting.jpg");
+  background-size: cover;
 }
 
 .navbar {
@@ -66,7 +68,7 @@ input {
 .posts {
   margin: auto;
 }
-.topOfPage{ 
+.topOfPage{
   /* color: white; */
   text-align: center;;
 }
