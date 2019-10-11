@@ -183,27 +183,32 @@ function postToHome() {
             return res.json();
         })
         .then((res) => {
+            // Targets the div allPosts, in the HTML, which will hold all the posts
             const list = document.querySelector('.allPosts');
 
+            // Loops through the posts in database, shows all posts:
             for (let i = 0; i < res.length; i++) {
-                // CREATE AN ITEM, WITH H3 AND P TAGS
+                // CREATE A SINGLE POST ITEM DIV, THAT WILL HAVE H3 AND P TAGS
                 const postItem = document.createElement('div');
-
                 postItem.classList.add("post");
                 postItem.id = `${res[i].id}`;
 
+                // name of the user posting will be held here
+                const postingUser = document.createElement('h4');
+                postingUser.classList.add("username");
+
+                // title of the post will be held here
                 const title = document.createElement('h3');
                 title.classList.add("postTitle");
 
-                const postingUser = document.createElement('h3');
-                postingUser.classList.add("username");
-
+                // description (content of the post) will be held here
                 const post = document.createElement('p');
                 post.classList.add("postText");
 
+                // Puts the posting username, title, and description into the tags
+                postingUser.innerText = `Post by: ${res[i].user.username}`;
                 title.innerText = `Title: ${res[i].title}`;
                 post.innerText = res[i].description;
-                postingUser.innerText = `Post by: ${res[i].user.username}`;
 
 
                 // EVERY POST HAS A DELETE BUTTON
@@ -218,10 +223,25 @@ function postToHome() {
                 });
                 
 
+                // Runs this function, which shows all the comments of a post 
                 commentsToPost(postItem.id);
+                // CREATE A COMMENT FORM, WITH A TEXT AREA, SUBMIT AND DELETE BUTTONS
+                const commentField = document.createElement('textarea');
+                commentField.classList.add("commentField");
+                const submitComment = document.createElement('button');
+                submitComment.classList.add("submitComment");
+                submitComment.innerText = "Comment";
+                // When the submit comment button is clicked, it runs the function createComment
+                submitComment.addEventListener('click', function () {
+                    event.preventDefault();
+                    // pass in the id of the post into createComment
+                    createComment(event.target.parentNode.getAttribute('id'));
+                });
 
-
-                postItem.append(postingUser, title, post, deletePostBtn);
+                // THE POST ITEM DIV TAKES posting username, title of post, post description, delete post,
+                // comment field, and comment submit button
+                postItem.append(postingUser, title, post, deletePostBtn, commentField, submitComment);
+                // This will put the post item to allPosts, which is targeted earlier and give the name 'list'
                 list.append(postItem);
             }
 
@@ -259,35 +279,38 @@ function deletePost(postId) {
 }
 
 
-// function createComment(id) {
-//     // WHEN SUBMIT COMMENT IS CLICKED, GET THE PARENT NODE'S ID
-//     // PARENT NODE IS THE POST
-//     // THEN CALL CREATE COMMENT
-//     // CREATE COMMENT WILL POST THE COMMENT
-//     let commentFieldInput = document.getElementById(`${id}`).querySelector('.commentField').value;
+function createComment(postId) {
+    // WHEN SUBMIT COMMENT IS CLICKED, GET THE PARENT NODE'S ID
+    // PARENT NODE IS THE POST
+    // THEN CALL CREATE COMMENT
+    // CREATE COMMENT WILL POST THE COMMENT
+    let commentFieldInput = document.getElementById(`${postId}`).querySelector('.commentField').value;
 
-//     fetch(`http://thesi.generalassemb.ly:8080/comment/${id}`, {
-//         method: 'POST',
-//         headers: {
-//             "Authorization": "Bearer " + localStorage.getItem('user'),
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({
-//             text: commentFieldInput
-//         })
-//     })
-//         .then((res) => {
-//             return res.json();
-//         })
-//         .then((res) => {
-//             location.reload(false);
-//         })
-//         .then((error) => {
-//             console.log(error);
-//         })
-//     // FIGURE OUT TO REFRESH THE PAGE ONLY AFTER THE POST WAS FINISHED
-//     // window.location.reload(false);
-// }
+    // If user puts nothing into the comment field, then call it will send an alert
+    if (commentFieldInput == "") {
+        alert("Please enter a comment");
+    } else {
+        fetch(`http://localhost:8080/comment/${postId}`, {
+            method: 'POST',
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem('user'),
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                description: commentFieldInput
+            })
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((res) => {
+                window.location.reload(false);
+            })
+            .then((error) => {
+                console.log(error);
+            })
+    }
+}
 
 // VIEW COMMENTS ON A POST
 // GET REQUEST RETURNS AN ARRAY OF COMMENTS OF THAT POST
@@ -311,7 +334,7 @@ function commentsToPost(postId) {
             // we're gonna attach to this post
             const post = document.getElementById(`${postId}`);
 
-            // loop through, show all comments
+            // loop through comments in database, show all comments
             for (let i = 0; i < res.length; i++) {
                 // a single comment item:
                 const commentItem = document.createElement('div');
