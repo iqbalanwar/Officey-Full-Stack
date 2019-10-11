@@ -54,11 +54,6 @@ function registerUser() {
             password: checkPasswords()
         })
     })
-        // .then(function(res) {
-        //     if (res.status === 500) {
-        //         alert("Username is taken");
-        //     }
-        // })
         .then(res => {
             if (res.status == 500) {
                 alert("Username is taken");
@@ -176,7 +171,6 @@ function postToHome() {
 
                 postItem.classList.add("post");
                 postItem.id = `${res[i].id}`;
-                postId = `${res[i].id}`;
 
                 const title = document.createElement('h3');
                 title.classList.add("postTitle");
@@ -198,33 +192,14 @@ function postToHome() {
                 deletePostBtn.classList.add("deletePostBtn");
                 deletePostBtn.innerText = "Delete Post";
 
-                deletePostBtn.addEventListener("click", () => {
-
-                    // SO, THIS FUNCTION IS WORKING. YOU CAN DELETE
-                    fetch((`http://localhost:8080/post/${res[i].id}`), {
-                        method: 'DELETE',
-                        headers: {
-                            "Authorization": "Bearer " + localStorage.getItem('user'),
-                            "Content-Type": "application/json"
-                        }
-                    })
-                        // .then((res) => {
-                        //     return res.json()
-                        // })
-                        .then((res) => {
-                            // WHY IS IT NOT TAKING POST ID?
-                            if (res.status === 200) {
-                                window.location.reload(false);
-                                alert("success");
-                            } else {
-                                alert("Please delete only your own posts.");
-                            }
-                        })
-                        .then((error) => {
-                            console.log(error);
-                        })
+                deletePostBtn.addEventListener("click", function(event){
+                    event.preventDefault();
+                    deletePost(postItem.id);
                 });
                 
+
+                commentsToPost(postItem.id);
+
 
                 postItem.append(title, post, deletePostBtn);
                 list.append(postItem);
@@ -236,31 +211,159 @@ function postToHome() {
         })
 }
 
-// function deletePost(postId) {
+function deletePost(postId) {
+    //const postId = event.target.parentNode.id;
+    // SO, THIS FUNCTION IS WORKING. YOU CAN DELETE
+    fetch((`http://localhost:8080/post/${postId}`), {
+        method: 'DELETE',
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem('user'),
+            "Content-Type": "application/json"
+        }
+    })
+        // .then((res) => {
+        //     return res.json()
+        // })
+        .then((res) => {
+            // WHY IS IT NOT TAKING POST ID?
+            if (res.status === 200) {
+                window.location.reload(false);
+                alert("success, deleted post");
+            } else {
+                alert("Please delete only your own posts.");
+            }
+        })
+        .then((error) => {
+            console.log(error);
+        })
+}
 
-//     // SO, THIS FUNCTION IS WORKING. YOU CAN DELETE
-//     fetch((`http://localhost:8080/post/${postId}`), {
-//         method: 'DELETE',
+
+// function createComment(id) {
+//     // WHEN SUBMIT COMMENT IS CLICKED, GET THE PARENT NODE'S ID
+//     // PARENT NODE IS THE POST
+//     // THEN CALL CREATE COMMENT
+//     // CREATE COMMENT WILL POST THE COMMENT
+//     let commentFieldInput = document.getElementById(`${id}`).querySelector('.commentField').value;
+
+//     fetch(`http://thesi.generalassemb.ly:8080/comment/${id}`, {
+//         method: 'POST',
 //         headers: {
 //             "Authorization": "Bearer " + localStorage.getItem('user'),
 //             "Content-Type": "application/json"
-//         }
+//         },
+//         body: JSON.stringify({
+//             text: commentFieldInput
+//         })
 //     })
-//         // .then((res) => {
-//         //     return res.json()
-//         // })
 //         .then((res) => {
-//             // WHY IS IT NOT TAKING POST ID?
-//             if (res.status === 200) {
-//                 // updateComments(listOfComments.id, commentItem.id);
-//                 alert("success");
-//             } else {
-//                 alert("Please delete only your own posts.");
-//             }
+//             return res.json();
+//         })
+//         .then((res) => {
+//             location.reload(false);
 //         })
 //         .then((error) => {
 //             console.log(error);
 //         })
+//     // FIGURE OUT TO REFRESH THE PAGE ONLY AFTER THE POST WAS FINISHED
+//     // window.location.reload(false);
+// }
+
+// VIEW COMMENTS ON A POST
+// GET REQUEST RETURNS AN ARRAY OF COMMENTS OF THAT POST
+function commentsToPost(postId) {
+    fetch(`http://localhost:8080/comment/${postId}`, {
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem('user'),
+            "Content-Type": "application.json"
+        }
+    })
+        .then((res) => {
+            //console.log(res);
+            return res.json();
+        })
+        .then((res) => {
+            // will hold comments from a specific post
+            const listOfComments = document.createElement('div');
+            listOfComments.classList.add("listOfComments");
+            listOfComments.id = `listComments_${postId}`;
+            // retrieving the post that these comments are for, from the DOM
+            // we're gonna attach to this post
+            const post = document.getElementById(`${postId}`);
+
+            // loop through, show all comments
+            for (let i = 0; i < res.length; i++) {
+                // a single comment item:
+                const commentItem = document.createElement('div');
+                commentItem.classList.add("comment");
+                commentItem.id = `comment_${res[i].id}`;
+
+                // THIS WILL HAVE THE USERNAME OF THE PERSON WHO MADE A COMMENT, FOR ALL THE COMMENTS
+                // const commenter = document.createElement('p');
+                // commenter.classList.add("commenter");
+                // commenter.style.fontWeight = "bold";
+                // commenter.innerText = `${res[i].user.username}: `;
+
+                // text of a comment
+                const commentDescription = document.createElement('p');
+                commentDescription.classList.add("commentText");
+                commentDescription.innerText = res[i].description;
+
+                // EVERY COMMENT HAS A DELETE BUTTON
+                // BUT SEND AN ERROR IF USER TRIES TO DELETE A COMMENT THAT'S NOT THEIRS
+                const deleteCommentBtn = document.createElement('button');
+                deleteCommentBtn.classList.add("deleteCommentBtn");
+                deleteCommentBtn.innerText = "Delete Comment";
+
+                commentItem.append(commentDescription, deleteCommentBtn);
+
+                listOfComments.append(commentItem);
+
+                // The following variable exists only to pass in the
+                // comment id to the delete
+                const commentId = res[i].id;
+                deleteCommentBtn.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    deleteComment(commentId);
+                });
+            }
+
+            post.append(listOfComments);
+        })
+        .then((error) => {
+            console.log(error);
+        })
+}
+function deleteComment(commentId) {
+    fetch((`http://localhost:8080/comment/${commentId}`), {
+        method: 'DELETE',
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem('user'),
+            "Content-Type": "application/json"
+        }
+    })
+        // .then((res) => {
+        //     return res.json()
+        // })
+        .then((res) => {
+            if (res.status === 200) {
+                //updateComments(listOfComments.id, commentItem.id);
+                window.location.reload(false);
+                alert("success, deleted comment!");
+            } else {
+                alert("Please delete only your own comments.");
+            }
+        })
+        .then((error) => {
+            console.log(error);
+        })
+}
+
+// function updateCommentsInDom(listOfComments, commentId) {
+//     const listComments = document.getElementById(`${listOfComments}`);
+//     const comment = document.querySelector(`#${commentId}`);
+//     listComments.removeChild(comment);
+//     // console.log(comment);
 // }
 
 /*============================= POSTS AND COMMENTS ON PROFILE PAGE =============================*/

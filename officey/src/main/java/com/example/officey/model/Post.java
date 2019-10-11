@@ -19,7 +19,7 @@ public class Post {
     @Column
     private String description;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.PERSIST,
         CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "user_id")
     private User user;
