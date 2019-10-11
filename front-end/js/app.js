@@ -1,3 +1,6 @@
+// If the user is logged in, the navbar is updated to say 'Welcome usernameHere'
+// Next to the welcome is a logout button
+// When they want to logout, it calls the removeUser
 function checkLogin() {
     if (localStorage.getItem('user') != null) {
         const navBar = document.querySelector('nav');
@@ -12,7 +15,10 @@ function checkLogin() {
         navBar.appendChild(logout);
     }
 }
-
+// If they want to logout, then it removes the user info from localStorage
+// and redirects to the landing page
+// So when checkLogin is called, localStorage.getItem('user'), which holds the token == null
+// And checkLogin doesn't run when the token == null
 function removeUserInfo() {
     if (confirm("Are you sure you want to log out?")) {
         localStorage.removeItem('user');
@@ -21,13 +27,22 @@ function removeUserInfo() {
     }
 }
 
-/*============================= REGISTRATION AND LOGIN =============================*/
+/* ======================================= REGISTRATION AND LOGIN ======================================= */
+
+// Since we're using a single app.js, certain functions can only run on certain pages
+// This does a check of which HTML page you're on, and runs the functions that are only 
+// supposed to run on this page
+// EXAMPLE: FOR REGLOGIN, ONLY RUN registerUser AND loginUser
+// Those two functions have other functions nested within them, that they're using
 if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == "regLogin.html") {
     console.log("You're in the regLogin!");
     document.querySelector('.submit').addEventListener("click", registerUser);
     document.querySelector('.loginSubmit').addEventListener("click", loginUser);
 }
 
+// IN THE RE-ENTER PASSWORDS FIELD
+// THIS CHECKS IF BOTH PASSWORDS MATCH
+// IF NOT, THEY HAVE TO MAKE THE PASSWORDS MATCH
 function checkPasswords() {
     const password = document.querySelector(".password").value;
     const checkPassword = document.querySelector(".checkPassword").value;
@@ -39,8 +54,8 @@ function checkPasswords() {
     }
 }
 
+// Creates a new user
 function registerUser() {
-    // THROW ERROR IS USER EXISTS
     const makeUsername = document.querySelector('.username').value;
     localStorage.setItem('username', makeUsername);
 
@@ -54,6 +69,8 @@ function registerUser() {
             password: checkPasswords()
         })
     })
+        // THROW ERROR IS USER EXISTS,
+        // IF USER DOESN'T EXIST, THEN CONTINUE
         .then(res => {
             if (res.status == 500) {
                 alert("Username is taken");
@@ -72,7 +89,7 @@ function registerUser() {
             console.log(error);
         })
 }
-
+// Login a user based on credentials in the user table in the database
 function loginUser() {
     // LOGIN USER USING THE CREDENTIALS
     const username = document.querySelector('.loginUsername').value;
@@ -106,8 +123,11 @@ function loginUser() {
         })
 }
 
-/*============================= POSTS AND COMMENTS ON HOME PAGE =============================*/
+/* ======================================= POSTS AND COMMENTS ON HOME PAGE ======================================= */
 
+// FOR HOME, ONLY RUN makePost AND postToHome
+// Those two functions have other functions nested within them, that they're using
+// postToHome runs on load (as of opening that page), but makePost can only be done pressing the submit button
 if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == "home.html") {
     console.log("You're in the home page!");
     checkLogin();
@@ -147,8 +167,8 @@ function makePost(event) {
         })
 }
 
-// PUTS USER INPUT INTO A LIST ITEM
-// CREATES A FORM FIELD FOR COMMENTS INTO THE LIST ITEM
+// PUTS USER INPUT INTO A DIV ITEM
+// CREATES A FORM FIELD FOR COMMENTS, INTO THE DIV ITEM
 // GET THE COMMENTS FOR THE POST
 // Posts our post to landing lol
 function postToHome() {
@@ -163,27 +183,32 @@ function postToHome() {
             return res.json();
         })
         .then((res) => {
+            // Targets the div allPosts, in the HTML, which will hold all the posts
             const list = document.querySelector('.allPosts');
 
+            // Loops through the posts in database, shows all posts:
             for (let i = 0; i < res.length; i++) {
-                // CREATE AN ITEM, WITH H3 AND P TAGS
+                // CREATE A SINGLE POST ITEM DIV, THAT WILL HAVE H3 AND P TAGS
                 const postItem = document.createElement('div');
-
                 postItem.classList.add("post");
                 postItem.id = `${res[i].id}`;
 
+                // name of the user posting will be held here
+                const postingUser = document.createElement('h4');
+                postingUser.classList.add("username");
+
+                // title of the post will be held here
                 const title = document.createElement('h3');
                 title.classList.add("postTitle");
 
-                // const postingUser = document.createElement('h3');
-                // postingUser.classList.add("username");
-
+                // description (content of the post) will be held here
                 const post = document.createElement('p');
                 post.classList.add("postText");
 
+                // Puts the posting username, title, and description into the tags
+                postingUser.innerText = `Post by: ${res[i].user.username}`;
                 title.innerText = `Title: ${res[i].title}`;
                 post.innerText = res[i].description;
-                // postingUser.innerText = `Post by: ${res[i].user.username}`;
 
 
                 // EVERY POST HAS A DELETE BUTTON
@@ -198,10 +223,25 @@ function postToHome() {
                 });
                 
 
+                // Runs this function, which shows all the comments of a post 
                 commentsToPost(postItem.id);
+                // CREATE A COMMENT FORM, WITH A TEXT AREA, SUBMIT AND DELETE BUTTONS
+                const commentField = document.createElement('textarea');
+                commentField.classList.add("commentField");
+                const submitComment = document.createElement('button');
+                submitComment.classList.add("submitComment");
+                submitComment.innerText = "Comment";
+                // When the submit comment button is clicked, it runs the function createComment
+                submitComment.addEventListener('click', function () {
+                    event.preventDefault();
+                    // pass in the id of the post into createComment
+                    createComment(event.target.parentNode.getAttribute('id'));
+                });
 
-
-                postItem.append(title, post, deletePostBtn);
+                // THE POST ITEM DIV TAKES posting username, title of post, post description, delete post,
+                // comment field, and comment submit button
+                postItem.append(postingUser, title, post, deletePostBtn, commentField, submitComment);
+                // This will put the post item to allPosts, which is targeted earlier and give the name 'list'
                 list.append(postItem);
             }
 
@@ -239,35 +279,38 @@ function deletePost(postId) {
 }
 
 
-// function createComment(id) {
-//     // WHEN SUBMIT COMMENT IS CLICKED, GET THE PARENT NODE'S ID
-//     // PARENT NODE IS THE POST
-//     // THEN CALL CREATE COMMENT
-//     // CREATE COMMENT WILL POST THE COMMENT
-//     let commentFieldInput = document.getElementById(`${id}`).querySelector('.commentField').value;
+function createComment(postId) {
+    // WHEN SUBMIT COMMENT IS CLICKED, GET THE PARENT NODE'S ID
+    // PARENT NODE IS THE POST
+    // THEN CALL CREATE COMMENT
+    // CREATE COMMENT WILL POST THE COMMENT
+    let commentFieldInput = document.getElementById(`${postId}`).querySelector('.commentField').value;
 
-//     fetch(`http://thesi.generalassemb.ly:8080/comment/${id}`, {
-//         method: 'POST',
-//         headers: {
-//             "Authorization": "Bearer " + localStorage.getItem('user'),
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({
-//             text: commentFieldInput
-//         })
-//     })
-//         .then((res) => {
-//             return res.json();
-//         })
-//         .then((res) => {
-//             location.reload(false);
-//         })
-//         .then((error) => {
-//             console.log(error);
-//         })
-//     // FIGURE OUT TO REFRESH THE PAGE ONLY AFTER THE POST WAS FINISHED
-//     // window.location.reload(false);
-// }
+    // If user puts nothing into the comment field, then call it will send an alert
+    if (commentFieldInput == "") {
+        alert("Please enter a comment");
+    } else {
+        fetch(`http://localhost:8080/comment/${postId}`, {
+            method: 'POST',
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem('user'),
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                description: commentFieldInput
+            })
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((res) => {
+                window.location.reload(false);
+            })
+            .then((error) => {
+                console.log(error);
+            })
+    }
+}
 
 // VIEW COMMENTS ON A POST
 // GET REQUEST RETURNS AN ARRAY OF COMMENTS OF THAT POST
@@ -291,7 +334,7 @@ function commentsToPost(postId) {
             // we're gonna attach to this post
             const post = document.getElementById(`${postId}`);
 
-            // loop through, show all comments
+            // loop through comments in database, show all comments
             for (let i = 0; i < res.length; i++) {
                 // a single comment item:
                 const commentItem = document.createElement('div');
@@ -366,7 +409,7 @@ function deleteComment(commentId) {
 //     // console.log(comment);
 // }
 
-/*============================= POSTS AND COMMENTS ON PROFILE PAGE =============================*/
+/* ======================================= POSTS AND COMMENTS ON PROFILE PAGE ======================================= */
 
 if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == "index.html") {
     console.log("You're in the landing page!");
@@ -387,7 +430,7 @@ if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/')
 /*
 OUR PROBLEMS RIGHT NOW:
 
-- Show the user that their registration already exists/login does not exist
+- Show the user that their login does not exist
 - When the user is logged in, don't allow them to access the login page (Welcome user!)
 
 - DELETE POSTS
