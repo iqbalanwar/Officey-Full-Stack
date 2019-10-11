@@ -350,10 +350,10 @@ function commentsToPost(postId) {
                 commentItem.id = `comment_${res[i].id}`;
 
                 // THIS WILL HAVE THE USERNAME OF THE PERSON WHO MADE A COMMENT, FOR ALL THE COMMENTS
-                // const commenter = document.createElement('p');
-                // commenter.classList.add("commenter");
-                // commenter.style.fontWeight = "bold";
-                // commenter.innerText = `${res[i].user.username}: `;
+                const commenter = document.createElement('p');
+                commenter.classList.add("commenter");
+                commenter.style.fontWeight = "bold";
+                commenter.innerText = `${res[i].user.username}: `;
 
                 // text of a comment
                 const commentDescription = document.createElement('p');
@@ -366,7 +366,7 @@ function commentsToPost(postId) {
                 deleteCommentBtn.classList.add("deleteCommentBtn");
                 deleteCommentBtn.innerText = "Delete Comment";
 
-                commentItem.append(commentDescription, deleteCommentBtn);
+                commentItem.append(commenter, commentDescription, deleteCommentBtn);
 
                 listOfComments.append(commentItem);
 
