@@ -198,7 +198,7 @@ function postToHome() {
                 });
                 
 
-                commentsToPost(res[i].id);
+                commentsToPost(postItem.id);
 
 
                 postItem.append(title, post, deletePostBtn);
@@ -309,9 +309,6 @@ function commentsToPost(postId) {
                 commentDescription.classList.add("commentText");
                 commentDescription.innerText = res[i].description;
 
-                // commentItem.append(commentText);
-
-
                 // EVERY COMMENT HAS A DELETE BUTTON
                 // BUT SEND AN ERROR IF USER TRIES TO DELETE A COMMENT THAT'S NOT THEIRS
                 const deleteComment = document.createElement('button');
@@ -324,11 +321,11 @@ function commentsToPost(postId) {
 
                 // The following variable exists only to pass in the
                 // comment id to the delete
-                //const commentId = res[i].id;
-                // deleteComment.addEventListener("click", function(event) {
-                //     event.preventDefault();
-                //     deleteComment(commentId);
-                // })
+                const commentId = res[i].id;
+                deleteComment.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    deleteComment(commentId);
+                });
             }
 
             post.append(listOfComments);
@@ -337,30 +334,30 @@ function commentsToPost(postId) {
             console.log(error);
         })
 }
-// function deleteComment(commentId) {
-//     fetch((`http://localhost:8080/comment/${commentId}`), {
-//         method: 'DELETE',
-//         headers: {
-//             "Authorization": "Bearer " + localStorage.getItem('user'),
-//             "Content-Type": "application/json"
-//         }
-//     })
-//         // .then((res) => {
-//         //     return res.json()
-//         // })
-//         .then((res) => {
-//             if (res.status === 200) {
-//                 //updateComments(listOfComments.id, commentItem.id);
-//                 window.location.reload(false);
-//                 prompt("success, deleted comment!");
-//             } else {
-//                 alert("Please delete only your own comments.");
-//             }
-//         })
-//         .then((error) => {
-//             console.log(error);
-//         })
-// }
+function deleteComment(commentId) {
+    fetch((`http://localhost:8080/comment/${commentId}`), {
+        method: 'DELETE',
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem('user'),
+            "Content-Type": "application/json"
+        }
+    })
+        // .then((res) => {
+        //     return res.json()
+        // })
+        .then((res) => {
+            if (res.status === 200) {
+                //updateComments(listOfComments.id, commentItem.id);
+                window.location.reload(false);
+                prompt("success, deleted comment!");
+            } else {
+                alert("Please delete only your own comments.");
+            }
+        })
+        .then((error) => {
+            console.log(error);
+        })
+}
 
 // function updateCommentsInDom(listOfComments, commentId) {
 //     const listComments = document.getElementById(`${listOfComments}`);
