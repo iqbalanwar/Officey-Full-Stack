@@ -416,6 +416,7 @@ if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/')
     console.log("You're in the profile page!");
     checkLogin();
     postOnProfile();
+    commentsToPostOnProfile();
 }
 
 function postOnProfile() {
@@ -443,7 +444,9 @@ function postOnProfile() {
                 post.classList.add("userPostText");
                 title.innerText = res[i].title;
                 post.innerText = res[i].description;
-
+                console.log(res[i]);
+                  commentsToPost(res[i].id);
+                // commentsToPost(res[i]);
                 // seeComments(res[i].id);
 
                 // CREATE A COMMENT FORM, WITH A TEXT AREA, SUBMIT AND DELETE BUTTONS
@@ -469,7 +472,56 @@ function postOnProfile() {
 }
 
 
+function commentsToPostOnProfile(postId) {
+    fetch(`http://localhost:8080/comment/${postId}`, {
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem('user'),
+            "Content-Type": "application.json"
+        }
+    })
+        .then((res) => {
+            //console.log(res);
+            return res.json();
+        })
+        .then((res) => {
+            // will hold comments from a specific post
+            const listOfComments = document.createElement('div');
+            listOfComments.classList.add("listOfComments");
+            listOfComments.id = `listComments_${postId}`;
+            // retrieving the post that these comments are for, from the DOM
+            // we're gonna attach to this post
+            const post = document.getElementById(`user_post_${postId}`);
 
+            // loop through comments in database, show all comments
+            for (let i = 0; i < res.length; i++) {
+                // a single comment item:
+                const commentItem = document.createElement('div');
+                commentItem.classList.add("comment");
+                commentItem.id = `comment_${res[i].id}`;
+
+                // THIS WILL HAVE THE USERNAME OF THE PERSON WHO MADE A COMMENT, FOR ALL THE COMMENTS
+                const commenter = document.createElement('p');
+                commenter.classList.add("commenter");
+                commenter.style.fontWeight = "bold";
+                commenter.innerText = `${res[i].user.username}: `;
+
+                // text of a comment
+                const commentDescription = document.createElement('p');
+                commentDescription.classList.add("commentText");
+                commentDescription.innerText = res[i].description;
+
+                commentItem.append(commenter, commentDescription);
+
+                listOfComments.append(commentItem);
+              }
+              if (listOfComments){
+                post.append(listOfComments);}
+
+              })
+              .catch((error) => {
+              console.log(error);
+              })
+}
 
 
 
