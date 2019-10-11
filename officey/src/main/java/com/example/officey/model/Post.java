@@ -1,6 +1,7 @@
 package com.example.officey.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -24,7 +25,8 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "post", cascade = {CascadeType.ALL})
+    @JsonManagedReference
     private List<Comment> comments;
 
     public Post() {}
