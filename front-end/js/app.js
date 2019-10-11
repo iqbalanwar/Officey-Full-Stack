@@ -195,15 +195,15 @@ function postToHome() {
                 const title = document.createElement('h3');
                 title.classList.add("postTitle");
 
-                // const postingUser = document.createElement('h3');
-                // postingUser.classList.add("username");
+                const postingUser = document.createElement('h3');
+                postingUser.classList.add("username");
 
                 const post = document.createElement('p');
                 post.classList.add("postText");
 
                 title.innerText = `Title: ${res[i].title}`;
                 post.innerText = res[i].description;
-                // postingUser.innerText = `Post by: ${res[i].user.username}`;
+                postingUser.innerText = `Post by: ${res[i].user.username}`;
 
 
                 // EVERY POST HAS A DELETE BUTTON
@@ -221,7 +221,7 @@ function postToHome() {
                 commentsToPost(postItem.id);
 
 
-                postItem.append(title, post, deletePostBtn);
+                postItem.append(postingUser, title, post, deletePostBtn);
                 list.append(postItem);
             }
 
