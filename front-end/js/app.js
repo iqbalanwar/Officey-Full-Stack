@@ -1,3 +1,6 @@
+// If the user is logged in, the navbar is updated to say 'Welcome usernameHere'
+// Next to the welcome is a logout button
+// When they want to logout, it calls the removeUser
 function checkLogin() {
     if (localStorage.getItem('user') != null) {
         const navBar = document.querySelector('nav');
@@ -12,7 +15,10 @@ function checkLogin() {
         navBar.appendChild(logout);
     }
 }
-
+// If they want to logout, then it removes the user info from localStorage
+// and redirects to the landing page
+// So when checkLogin is called, localStorage.getItem('user'), which holds the token == null
+// And checkLogin doesn't run when the token == null
 function removeUserInfo() {
     if (confirm("Are you sure you want to log out?")) {
         localStorage.removeItem('user');
@@ -21,13 +27,22 @@ function removeUserInfo() {
     }
 }
 
-/*============================= REGISTRATION AND LOGIN =============================*/
+/* ======================================= REGISTRATION AND LOGIN ======================================= */
+
+// Since we're using a single app.js, certain functions can only run on certain pages
+// This does a check of which HTML page you're on, and runs the functions that are only 
+// supposed to run on this page
+// EXAMPLE: FOR REGLOGIN, ONLY RUN registerUser AND loginUser
+// Those two functions have other functions nested within them, that they're using
 if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == "regLogin.html") {
     console.log("You're in the regLogin!");
     document.querySelector('.submit').addEventListener("click", registerUser);
     document.querySelector('.loginSubmit').addEventListener("click", loginUser);
 }
 
+// IN THE RE-ENTER PASSWORDS FIELD
+// THIS CHECKS IF BOTH PASSWORDS MATCH
+// IF NOT, THEY HAVE TO MAKE THE PASSWORDS MATCH
 function checkPasswords() {
     const password = document.querySelector(".password").value;
     const checkPassword = document.querySelector(".checkPassword").value;
@@ -39,8 +54,8 @@ function checkPasswords() {
     }
 }
 
+// Creates a new user
 function registerUser() {
-    // THROW ERROR IS USER EXISTS
     const makeUsername = document.querySelector('.username').value;
     localStorage.setItem('username', makeUsername);
 
@@ -54,6 +69,8 @@ function registerUser() {
             password: checkPasswords()
         })
     })
+        // THROW ERROR IS USER EXISTS,
+        // IF USER DOESN'T EXIST, THEN CONTINUE
         .then(res => {
             if (res.status == 500) {
                 alert("Username is taken");
@@ -72,7 +89,7 @@ function registerUser() {
             console.log(error);
         })
 }
-
+// Login a user based on credentials in the user table in the database
 function loginUser() {
     // LOGIN USER USING THE CREDENTIALS
     const username = document.querySelector('.loginUsername').value;
@@ -106,8 +123,11 @@ function loginUser() {
         })
 }
 
-/*============================= POSTS AND COMMENTS ON HOME PAGE =============================*/
+/* ======================================= POSTS AND COMMENTS ON HOME PAGE ======================================= */
 
+// FOR HOME, ONLY RUN makePost AND postToHome
+// Those two functions have other functions nested within them, that they're using
+// postToHome runs on load (as of opening that page), but makePost can only be done pressing the submit button
 if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == "home.html") {
     console.log("You're in the home page!");
     checkLogin();
@@ -147,8 +167,8 @@ function makePost(event) {
         })
 }
 
-// PUTS USER INPUT INTO A LIST ITEM
-// CREATES A FORM FIELD FOR COMMENTS INTO THE LIST ITEM
+// PUTS USER INPUT INTO A DIV ITEM
+// CREATES A FORM FIELD FOR COMMENTS, INTO THE DIV ITEM
 // GET THE COMMENTS FOR THE POST
 // Posts our post to landing lol
 function postToHome() {
@@ -366,7 +386,7 @@ function deleteComment(commentId) {
 //     // console.log(comment);
 // }
 
-/*============================= POSTS AND COMMENTS ON PROFILE PAGE =============================*/
+/* ======================================= POSTS AND COMMENTS ON PROFILE PAGE ======================================= */
 
 if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == "index.html") {
     console.log("You're in the landing page!");
@@ -387,7 +407,7 @@ if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/')
 /*
 OUR PROBLEMS RIGHT NOW:
 
-- Show the user that their registration already exists/login does not exist
+- Show the user that their login does not exist
 - When the user is logged in, don't allow them to access the login page (Welcome user!)
 
 - DELETE POSTS
