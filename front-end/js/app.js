@@ -114,7 +114,9 @@ function loginUser() {
         })
         .then((res) => {
             localStorage.setItem('user', res.token);
-            if (res.token) { // DO I GET A RESPONSE? IF YES:
+            if (res.token == null) {
+                alert("Your username/password is not correct");
+            } else { // DO I GET A RESPONSE? IF YES:
                 window.location.href = "home.html";
             }
         })
