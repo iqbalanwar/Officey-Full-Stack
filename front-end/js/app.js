@@ -115,7 +115,7 @@ function loginUser() {
         .then((res) => {
             localStorage.setItem('user', res.token);
             if (res.token == null) {
-                alert("Your username/password is not correct");
+                alert("Your username/password is not correct (Case-sensitive!)");
             } else { // DO I GET A RESPONSE? IF YES:
                 window.location.href = "home.html";
             }
@@ -535,10 +535,6 @@ function commentsToPostOnProfile(postId) {
 /*
 OUR PROBLEMS RIGHT NOW:
 
-- Show the user that their login does not exist
-- When the user is logged in, don't allow them to access the login page (Welcome user!)
-
-- DELETE POSTS
 - UPDATE PROFILE (which is just the mobile #)
 
 BONUS:
