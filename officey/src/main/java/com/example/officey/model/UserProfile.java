@@ -1,6 +1,7 @@
 package com.example.officey.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 
@@ -26,6 +27,7 @@ public class UserProfile {
     @OneToOne(mappedBy = "userProfile",
             cascade = {CascadeType.DETACH, CascadeType.MERGE,
                     CascadeType.REFRESH, CascadeType.PERSIST})
+    @JsonManagedReference
     private User user;
 
     public UserProfile() {}
@@ -33,6 +35,9 @@ public class UserProfile {
     public User getUser() { return user; }
 
     public void setUser(User user) { this.user = user; }
+
+    @JsonIgnore
+    public Long getUserId() { return user.getId(); }
 
     public Long getId() {
         return id;

@@ -1,41 +1,48 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="css/regLogin.css">
-  <body>
-    <header>
-      <nav class="navbar">
-          <a href="index.html">Home</a>
-          <a href="profile.html">Profile</a>
-          <a href="regLogin.html">Login/Sign Up</a>
-      </nav>
-    </header>
-    <div class="container">
-        <div class="container-left">
-          <h1>Register</h1>
-          <p>Please fill out this form to create an account.</p>
-          <form>
-            <label for="username"><strong>Username</strong></label>
-            <input class="username"type="text" placeholder="Enter Username" name="username" required>
-            <label for="psw"><strong>Password</strong></label>
-            <input class="password" type="password" placeholder="Enter Password" name="psw" required>
-            <label class="confirm" for="cpsw"><strong>Confirm</strong></label>
-            <input class="checkPassword" type="password" placeholder="Re-enter Password" name="cpsw" required>
-            <button class="submit" type="button" name="button">Submit</button>
-          </form>
-        </div>
-        <div class="container-right">
-          <h1>Log in</h1>
-          <p>Please fill out the information to log in.</p>
-          <label for="uname"><strong>Username</strong></label>
-          <input class = "loginUsername"type="text" placeholder="Enter Username" name="uname" required>
-          <label for="psw"><strong>Password</strong></label>
-          <input class ="loginPassword"type="password" placeholder="Enter Password" name="psw" required>
-          <button class = "loginSubmit"type="submit">Login</button>
-        </div>
 
-        <script src="js/app.js" lang="js"></script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="css/regLogin.css">
+
+<body>
+  <header>
+    <nav class="navbar">
+      <a href="index.html">Home</a>
+      <a href="regLogin.html">Login/Sign Up</a>
+    </nav>
+  </header>
+  <div class="container">
+    <div class="container-left">
+      <h1>Register</h1>
+      <p>Please fill out this form to create an account.</p>
+      <form>
+        <label for="username"><strong>Username</strong></label>
+        <input class="username" type="text" placeholder="Enter Username" name="username" required>
+        <label for="psw"><strong>Password</strong></label>
+        <input class="password" type="password" placeholder="Enter Password" name="psw" required>
+        <label class="confirm" for="cpsw"><strong>Confirm</strong></label>
+        <input class="checkPassword" type="password" placeholder="Re-enter Password" name="cpsw" required>
+        <button class="submit" type="button" name="button">Submit</button>
+      </form>
+    </div>
+    <div class="container-right">
+      <h1>Log in</h1>
+      <p>Please fill out the information to log in.</p>
+      <label for="uname"><strong>Username</strong></label>
+      <input class="loginUsername" type="text" placeholder="Enter Username" name="uname" required>
+      <label for="psw"><strong>Password</strong></label>
+      <input class="loginPassword" type="password" placeholder="Enter Password" name="psw" required>
+      <button class="loginSubmit" type="submit">Login</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy Iqbal Anwar & Santiago Ulloa</p>
+  </footer>
+
+  <script src="js/app.js" lang="js"></script>
+</body>
+
 </html>

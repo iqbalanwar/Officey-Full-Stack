@@ -2,8 +2,8 @@
 // Next to the welcome is a logout button
 // When they want to logout, it calls the removeUser
 function checkLogin() {
+    const navBar = document.querySelector('nav');
     if (localStorage.getItem('user') != null) {
-        const navBar = document.querySelector('nav');
         const navItem = navBar.lastElementChild;
         navItem.innerText = "Welcome, " + localStorage.getItem('username');
         navItem.href = "home.html";
@@ -13,6 +13,9 @@ function checkLogin() {
         logout.innerText = "Log Out";
         logout.addEventListener("click", removeUserInfo);
         navBar.appendChild(logout);
+    } else {
+        const profilePageNav = document.querySelector(".profilePage");
+        profilePageNav.innerHTML = "";
     }
 }
 // If they want to logout, then it removes the user info from localStorage
@@ -25,6 +28,11 @@ function removeUserInfo() {
         localStorage.removeItem('username');
         window.location.href = "index.html";
     }
+}
+
+if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == "index.html") {
+    console.log("You're in the landing page!");
+    checkLogin();
 }
 
 /* ======================================= REGISTRATION AND LOGIN ======================================= */
@@ -251,6 +259,7 @@ function postToHome() {
                 // THE POST ITEM DIV TAKES posting username, title of post, post description, delete post,
                 // comment field, and comment submit button
                 postItem.append(postingUser, title, post, deletePostBtn, commentField, submitComment);
+                postItem.style.border = "solid 1px black";
                 // This will put the post item to allPosts, which is targeted earlier and give the name 'list'
                 list.append(postItem);
             }
@@ -275,7 +284,6 @@ function deletePost(postId) {
         //     return res.json()
         // })
         .then((res) => {
-            // WHY IS IT NOT TAKING POST ID?
             if (res.status === 200) {
                 window.location.reload(false);
                 alert("success, deleted post");
@@ -283,7 +291,7 @@ function deletePost(postId) {
                 alert("Please delete only your own posts.");
             }
         })
-        .then((error) => {
+        .catch((error) => {
             console.log(error);
         })
 }
@@ -316,7 +324,7 @@ function createComment(postId) {
             .then((res) => {
                 window.location.reload(false);
             })
-            .then((error) => {
+            .catch((error) => {
                 console.log(error);
             })
     }
@@ -369,8 +377,10 @@ function commentsToPost(postId) {
                 deleteCommentBtn.innerText = "Delete Comment";
 
                 commentItem.append(commenter, commentDescription, deleteCommentBtn);
+                commentItem.style.borderTop = "dashed 1px black";
 
                 listOfComments.append(commentItem);
+                listOfComments.style.borderLeft = "solid 1px black";
 
                 // The following variable exists only to pass in the
                 // comment id to the delete
@@ -383,7 +393,7 @@ function commentsToPost(postId) {
 
             post.append(listOfComments);
         })
-        .then((error) => {
+        .catch((error) => {
             console.log(error);
         })
 }
@@ -407,7 +417,7 @@ function deleteComment(commentId) {
                 alert("Please delete only your own comments.");
             }
         })
-        .then((error) => {
+        .catch((error) => {
             console.log(error);
         })
 }
@@ -418,7 +428,9 @@ if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/')
     console.log("You're in the profile page!");
     checkLogin();
     postOnProfile();
-    commentsToPostOnProfile();
+    userComments();
+    document.querySelector(".updateButton").addEventListener("click", setProfile);
+    document.querySelector(".getButton").addEventListener("click", getProfile);
 }
 
 function postOnProfile() {
@@ -433,9 +445,8 @@ function postOnProfile() {
         })
         .then((res) => {
             const list = document.querySelector('.allUserPosts');
-            console.log(list);
-
-            for (let i = (res.length - 1); i > 0; i--) {
+            console.log(res);
+            for (let i = 0; i < res.length - 1; i++) {
                 // CREATE AN ITEM, WITH H3 AND P TAGS
                 const item = document.createElement('div');
                 item.classList.add("userPost");
@@ -444,27 +455,16 @@ function postOnProfile() {
                 title.classList.add("userPostTitle");
                 const post = document.createElement('p');
                 post.classList.add("userPostText");
-                title.innerText = res[i].title;
+                title.innerText = "Title: " + res[i].title;
                 post.innerText = res[i].description;
                 console.log(res[i]);
-                  commentsToPost(res[i].id);
-                // commentsToPost(res[i]);
-                // seeComments(res[i].id);
 
-                // CREATE A COMMENT FORM, WITH A TEXT AREA, SUBMIT AND DELETE BUTTONS
-                //const commentForm = document.createElement('form');
-                // const commentField = document.createElement('textarea');
-                // commentField.classList.add("commentField");
-                // const submitComment = document.createElement('button');
-                // submitComment.classList.add("submitComment");
-                // submitComment.innerText = "Comment";
-                // submitComment.addEventListener('click', function () {
-                //     event.preventDefault();
-                //     createComment(event.target.parentNode.getAttribute('id'));
-                // });
+                commentsToPostOnProfile(res[i].id);
 
-                // ITEM TAKES TITLE, POST, COMMENTFIELD, AND SUBMITCOMMENT
+                // ITEM TAKES TITLE AND POST
                 item.append(title, post);
+                item.style.border = "solid 1px black";
+
                 list.append(item);
             }
         })
@@ -472,7 +472,6 @@ function postOnProfile() {
             console.log(error);
         })
 }
-
 
 function commentsToPostOnProfile(postId) {
     fetch(`http://localhost:8080/comment/${postId}`, {
@@ -482,7 +481,6 @@ function commentsToPostOnProfile(postId) {
         }
     })
         .then((res) => {
-            //console.log(res);
             return res.json();
         })
         .then((res) => {
@@ -515,16 +513,132 @@ function commentsToPostOnProfile(postId) {
                 commentItem.append(commenter, commentDescription);
 
                 listOfComments.append(commentItem);
-              }
-              if (listOfComments){
-                post.append(listOfComments);}
-
-              })
-              .catch((error) => {
-              console.log(error);
-              })
+                commentItem.style.borderTop = "dashed 1px black";
+            }
+            if (listOfComments){
+                post.append(listOfComments);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
 }
 
+function userComments() {
+    fetch(`http://localhost:8080/comment/user/list`, {
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem('user'),
+            "Content-Type": "application.json"
+        }
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((res) => {
+            // will hold comments from a specific post
+            const listOfComments = document.querySelector('.allUserComments');
+
+            // loop through comments in database, show all comments
+            for (let i = 0; i < res.length; i++) {
+                console.log(res);
+                // a single comment item:
+                const commentItem = document.createElement('div');
+                commentItem.classList.add("comment");
+                commentItem.id = `comment_${res[i].id}`;
+
+                // THIS WILL HAVE THE USERNAME OF THE PERSON WHO MADE A COMMENT, FOR ALL THE COMMENTS
+                const commenter = document.createElement('p');
+                commenter.classList.add("commenter");
+                commenter.style.fontWeight = "bold";
+                commenter.innerText = `${res[i].user.username}: `;
+
+                // text of a comment
+                const commentDescription = document.createElement('p');
+                commentDescription.classList.add("commentText");
+                commentDescription.innerText = res[i].description;
+
+
+                const madeOnPost = document.createElement('p');
+                //madeOnPost.innerText = res[i].user.username;
+                madeOnPost.innerText = "Made on post: (Insert post id here)";
+
+                commentItem.append(commenter, commentDescription, madeOnPost);
+                commentItem.style.border = "solid 1px black";
+
+                listOfComments.append(commentItem);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
+function setProfile() {
+    const email = document.querySelector('.add_email').value;
+    const mobile = document.querySelector('.mobile').value;
+    const address = document.querySelector('.address').value;
+
+    if (email == "" && mobile == "" && address == "") {
+        alert("Please input into fields before submitting");
+    } else if (email == "") {
+        alert("You didn't input an email!");
+    } else if (mobile == "") {
+        alert("You didn't input a mobile number!");
+    } else if (address == "") {
+        alert("You didn't input an address!");
+    }
+    
+
+    fetch('http://localhost:8080/profile', {
+        method: 'POST',
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem('user'),
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            email: email,
+            mobile: mobile,
+            address: address
+        })
+    })
+        .then((res) => {
+            alert('You have made a profile!');
+            getProfile();
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
+function getProfile() {
+    fetch('http://localhost:8080/profile', {
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem('user'),
+            "Content-Type": "application/json"
+        }
+    })
+        .then((res) => {
+            return (res.json());
+        })
+        .then((res) => {
+            const inputContainer = document.querySelector(".profileInfo");
+
+            const userEmail = document.createElement('p');
+            userEmail.innerText = "Email: " + res.email;
+
+            const userMobile = document.createElement('p');
+            userMobile.innerText = "Mobile: " + res.mobile;
+
+            const userAddress = document.createElement('p');
+            userAddress.innerText = "Address: " + res.address;
+
+            inputContainer.append(userEmail, userMobile, userAddress);
+
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
 
 
 
@@ -534,10 +648,6 @@ function commentsToPostOnProfile(postId) {
 
 /*
 OUR PROBLEMS RIGHT NOW:
-
-- UPDATE PROFILE (which is just the mobile #)
-
-BONUS:
 - Make profile page that shows the user's info
 - Show the users posts in their profile
 */

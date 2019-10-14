@@ -31,7 +31,6 @@ public class UserProfileServiceImpl implements UserProfileService{
     public UserProfile getUserProfile() {
         User username = userRepository.findByUsername(securityController.getCurrentUserName());
         return username.getUserProfile();
-//        userProfileRepository.findById()
-//        return userProfileRepository.findProfileByUsername(securityController.getCurrentUserName());
+
     }
 }

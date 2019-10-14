@@ -1,39 +1,56 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="css/profile.css">
-  </head>
-  <body>
-    <header>
-      <nav class="navbar">
-        <a href="index.html">Landing</a>
-        <a href="profile.html">Profile</a>
-        <a href="regLogin.html">Login/Sign Up</a>
-      </nav>
-    </header>
-    <div class="mainContainer">
-      <div class="inputContainer">
-        <h1 class="profile">Profile</h1>
-        <form class="" action="" method="">
-          <label>Username</label>
-          <input type="text" name="username" value="">
-          <label class="add_email">Additional Email</label>
-          <input type="email" name="email" value="">
-          <label>Mobile</label>
-          <input type="phone" name="phone" value="">
-          <label>Address</label>
-          <input type="text" name="address" value="">
-          <button class="updatebutton" type="button" name="button">Update</button>
-        </form>
-      </div>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+
+<body>
+  <header>
+    <nav class="navbar">
+      <a href="index.html">Landing</a>
+      <a href="profile.html">Profile</a>
+      <a href="regLogin.html">Login/Sign Up</a>
+    </nav>
+  </header>
+  <div class="mainContainer">
+
+    <div class="inputContainer">
+      <h1 class="profile">Profile</h1>
+      <form class="" action="" method="">
+        <label>Set Email</label>
+        <input class="add_email" type="email" name="email" value="">
+        <label>Mobile</label>
+        <input class="mobile" type="phone" name="phone" value="">
+        <label>Address</label>
+        <input class="address" type="text" name="address" value="" style="margin-bottom: 10px;">
+        <button class="updateButton" type="button" name="button">Update</button>
+        <button class="getButton" type="button" name="button">Get Profile</button>
+      </form>
+      <div class="profileInfo"></div>
+    </div>
+
+    <div class = "postsAndComments">
       <div class="userPosts">
-          <h2 class="postsTitle">User Posts</h2>
-          <div class="allUserPosts"></div>
+        <h2 class="postsTitle">User Posts</h2>
+        <div class="allUserPosts"></div>
+      </div>
+      
+      <div class="userComments">
+        <h2 class="commentsTitle">User Comments</h2>
+        <div class="allUserComments"></div>
       </div>
     </div>
 
-    <script src="js/app.js" lang="js"></script>
-  </body>
+  </div>
+
+  <footer>
+    <p>&copy Iqbal Anwar & Santiago Ulloa</p>
+  </footer>
+
+  <script src="js/app.js" lang="js"></script>
+</body>
+
 </html>
