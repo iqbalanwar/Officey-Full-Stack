@@ -2,8 +2,8 @@
 // Next to the welcome is a logout button
 // When they want to logout, it calls the removeUser
 function checkLogin() {
+    const navBar = document.querySelector('nav');
     if (localStorage.getItem('user') != null) {
-        const navBar = document.querySelector('nav');
         const navItem = navBar.lastElementChild;
         navItem.innerText = "Welcome, " + localStorage.getItem('username');
         navItem.href = "home.html";
@@ -13,6 +13,9 @@ function checkLogin() {
         logout.innerText = "Log Out";
         logout.addEventListener("click", removeUserInfo);
         navBar.appendChild(logout);
+    } else {
+        const profilePageNav = document.querySelector(".profilePage");
+        profilePageNav.innerHTML = "";
     }
 }
 // If they want to logout, then it removes the user info from localStorage
@@ -25,6 +28,11 @@ function removeUserInfo() {
         localStorage.removeItem('username');
         window.location.href = "index.html";
     }
+}
+
+if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) == "index.html") {
+    console.log("You're in the landing page!");
+    checkLogin();
 }
 
 /* ======================================= REGISTRATION AND LOGIN ======================================= */
@@ -447,8 +455,6 @@ function postOnProfile() {
                 post.innerText = res[i].description;
                 console.log(res[i]);
 
-                commentsToPost(res[i].id);
-
                 // ITEM TAKES TITLE, POST, COMMENTFIELD, AND SUBMITCOMMENT
                 item.append(title, post);
                 list.append(item);
@@ -461,7 +467,7 @@ function postOnProfile() {
 
 
 function commentsToPostOnProfile(postId) {
-    fetch(`http://localhost:8080/comment/${postId}`, {
+    fetch(`http://localhost:8080/comment/user/list`, {
         headers: {
             "Authorization": "Bearer " + localStorage.getItem('user'),
             "Content-Type": "application.json"
@@ -487,10 +493,10 @@ function commentsToPostOnProfile(postId) {
                 commentItem.id = `comment_${res[i].id}`;
 
                 // THIS WILL HAVE THE USERNAME OF THE PERSON WHO MADE A COMMENT, FOR ALL THE COMMENTS
-                const commenter = document.createElement('p');
-                commenter.classList.add("commenter");
-                commenter.style.fontWeight = "bold";
-                commenter.innerText = `${res[i].user.username}: `;
+                // const commenter = document.createElement('p');
+                // commenter.classList.add("commenter");
+                // commenter.style.fontWeight = "bold";
+                // commenter.innerText = `${res[i].user.username}: `;
 
                 // text of a comment
                 const commentDescription = document.createElement('p');
@@ -520,8 +526,6 @@ function commentsToPostOnProfile(postId) {
 /*
 OUR PROBLEMS RIGHT NOW:
 - UPDATE PROFILE
-
-BONUS:
 - Make profile page that shows the user's info
 - Show the users posts in their profile
 */

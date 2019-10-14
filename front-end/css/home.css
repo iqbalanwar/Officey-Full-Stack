@@ -43,12 +43,10 @@ input {
   display: flex;
   flex-direction: column;
   margin: auto;
-  margin: 0 auto;
   width: 30%;
 }
 .postTitle {
   height: 35px;
-
 }
 .postField{
   height: 100px;
@@ -64,7 +62,6 @@ input {
 }
 .makeAPost>h2 {
   text-align: center;
-
 }
 
 .posts {
