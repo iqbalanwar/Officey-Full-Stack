@@ -35,14 +35,11 @@ Though this was a two-person project, we're glad that we were able to relay our 
 As mentioned before, we flagged all of our issues on Github.
 Our most cumbersome issue was finding out the no-cors issue, between front-end and back-end.
 Though we still have much of the front-end to refine, we're happy with what we have so far.
+(We did want to make more office references, but we focused on functionality! Had to compromise).
 
-## Necessary Deliverables
+## User Stories
 
-- User stories to show the the work breakdown and project deliverables.
+Our users are lovers of The Office, and people who want to post about the going-ons of their own offices. This is for two main reasons: finding out about the gossip in their workplace, and keeping a comedic tone to their workplace conversation while relating to The Office characters (Who's the Jim and Pam? Kelly, Dwight, and Toby?). 
+Users can create an account, and post to a page visible to other users. Users can also see their own posts (along with their posts' respective comments) on their profile page. Furthermore, if the user so wishes, they can add their email (to keep up with the latest posts), along with their mobile and address (if they wanted their friends to know!). 
 
-	- A link to your user stories — who are your users, what do they want, and why?
-- A **10-minute** presentation, illustrating:
-	- Your `README.md`.
-	- Unit testing, by running at least one set of tests.
-	- Triumphs.
-	- Challenges.
+(Note: We haven't implemented friending and keeping an email alert on posts, but these were some of the things we were thinking about doing once we were done with the core functionality.)
