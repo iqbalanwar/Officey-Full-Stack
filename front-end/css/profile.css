@@ -39,7 +39,6 @@ header>h1 {
   font-family: 'Courier New', Courier, monospace;
   color: white;
   display: flex;
-  flex-direction: row;
 }
 
 .profile{
@@ -72,13 +71,19 @@ body{
     flex-direction: column;
 }
 
+.postsAndComments {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
 .userPosts{
   margin-left: 200px;
   margin-top: 100px;
-}
-
-.postsTitle{
-  font-size: 2rem;
 }
 
 .allUserPosts{
@@ -86,7 +91,25 @@ body{
   max-height: 100vh;
   background-color: white;
   width: 600px;
-  height: 80%;
+  height: 350px;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  color: black;
+}
+
+.userComments{
+  margin-left: 200px;
+  margin-top: 100px;
+  margin-bottom: 200px;
+}
+
+.allUserComments{
+  overflow-y: scroll;
+  max-height: 100vh;
+  background-color: white;
+  width: 600px;
+  height: 350px;
   display: flex;
   flex-direction: column-reverse;
   justify-content: center;

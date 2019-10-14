@@ -259,6 +259,7 @@ function postToHome() {
                 // THE POST ITEM DIV TAKES posting username, title of post, post description, delete post,
                 // comment field, and comment submit button
                 postItem.append(postingUser, title, post, deletePostBtn, commentField, submitComment);
+                postItem.style.border = "solid 1px black";
                 // This will put the post item to allPosts, which is targeted earlier and give the name 'list'
                 list.append(postItem);
             }
@@ -376,8 +377,10 @@ function commentsToPost(postId) {
                 deleteCommentBtn.innerText = "Delete Comment";
 
                 commentItem.append(commenter, commentDescription, deleteCommentBtn);
+                commentItem.style.borderTop = "dashed 1px black";
 
                 listOfComments.append(commentItem);
+                listOfComments.style.borderLeft = "solid 1px black";
 
                 // The following variable exists only to pass in the
                 // comment id to the delete
@@ -425,7 +428,8 @@ if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/')
     console.log("You're in the profile page!");
     checkLogin();
     postOnProfile();
-    commentsToPostOnProfile();
+    // commentsToPostOnProfile();
+    userComments();
 }
 
 function postOnProfile() {
@@ -451,12 +455,16 @@ function postOnProfile() {
                 title.classList.add("userPostTitle");
                 const post = document.createElement('p');
                 post.classList.add("userPostText");
-                title.innerText = res[i].title;
+                title.innerText = "Title: " + res[i].title;
                 post.innerText = res[i].description;
                 console.log(res[i]);
 
+                commentsToPostOnProfile(res[i].id);
+
                 // ITEM TAKES TITLE, POST, COMMENTFIELD, AND SUBMITCOMMENT
                 item.append(title, post);
+                item.style.border = "solid 1px black";
+
                 list.append(item);
             }
         })
@@ -465,9 +473,8 @@ function postOnProfile() {
         })
 }
 
-
 function commentsToPostOnProfile(postId) {
-    fetch(`http://localhost:8080/comment/user/list`, {
+    fetch(`http://localhost:8080/comment/${postId}`, {
         headers: {
             "Authorization": "Bearer " + localStorage.getItem('user'),
             "Content-Type": "application.json"
@@ -493,10 +500,10 @@ function commentsToPostOnProfile(postId) {
                 commentItem.id = `comment_${res[i].id}`;
 
                 // THIS WILL HAVE THE USERNAME OF THE PERSON WHO MADE A COMMENT, FOR ALL THE COMMENTS
-                // const commenter = document.createElement('p');
-                // commenter.classList.add("commenter");
-                // commenter.style.fontWeight = "bold";
-                // commenter.innerText = `${res[i].user.username}: `;
+                const commenter = document.createElement('p');
+                commenter.classList.add("commenter");
+                commenter.style.fontWeight = "bold";
+                commenter.innerText = `${res[i].user.username}: `;
 
                 // text of a comment
                 const commentDescription = document.createElement('p');
@@ -506,16 +513,65 @@ function commentsToPostOnProfile(postId) {
                 commentItem.append(commenter, commentDescription);
 
                 listOfComments.append(commentItem);
-              }
-              if (listOfComments){
-                post.append(listOfComments);}
-
-              })
-              .catch((error) => {
-              console.log(error);
-              })
+                listOfComments.style.border = "solid 1px black";
+            }
+            if (listOfComments){
+                post.append(listOfComments);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
 }
 
+function userComments() {
+    fetch(`http://localhost:8080/comment/user/list`, {
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem('user'),
+            "Content-Type": "application.json"
+        }
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((res) => {
+            // will hold comments from a specific post
+            const listOfComments = document.querySelector('.allUserComments');
+
+            // loop through comments in database, show all comments
+            for (let i = 0; i < res.length; i++) {
+                console.log(res);
+                // a single comment item:
+                const commentItem = document.createElement('div');
+                commentItem.classList.add("comment");
+                commentItem.id = `comment_${res[i].id}`;
+
+                // THIS WILL HAVE THE USERNAME OF THE PERSON WHO MADE A COMMENT, FOR ALL THE COMMENTS
+                const commenter = document.createElement('p');
+                commenter.classList.add("commenter");
+                commenter.style.fontWeight = "bold";
+                commenter.innerText = `${res[i].user.username}: `;
+
+                // text of a comment
+                const commentDescription = document.createElement('p');
+                commentDescription.classList.add("commentText");
+                commentDescription.innerText = res[i].description;
+
+
+                const madeOnPost = document.createElement('p');
+                //madeOnPost.innerText = res[i].user.username;
+                madeOnPost.innerText = "Made on post: (Insert post id here)";
+
+                commentItem.append(commenter, commentDescription, madeOnPost);
+                commentItem.style.border = "solid 1px black";
+
+                listOfComments.append(commentItem);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
 
 
 
