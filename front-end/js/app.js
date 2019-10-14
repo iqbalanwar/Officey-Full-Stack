@@ -428,8 +428,9 @@ if (window.location.pathname.substring(window.location.pathname.lastIndexOf('/')
     console.log("You're in the profile page!");
     checkLogin();
     postOnProfile();
-    // commentsToPostOnProfile();
     userComments();
+    document.querySelector(".updateButton").addEventListener("click", setProfile);
+    document.querySelector(".getButton").addEventListener("click", getProfile);
 }
 
 function postOnProfile() {
@@ -444,9 +445,8 @@ function postOnProfile() {
         })
         .then((res) => {
             const list = document.querySelector('.allUserPosts');
-            console.log(list);
-
-            for (let i = (res.length - 1); i > 0; i--) {
+            console.log(res);
+            for (let i = 0; i < res.length - 1; i++) {
                 // CREATE AN ITEM, WITH H3 AND P TAGS
                 const item = document.createElement('div');
                 item.classList.add("userPost");
@@ -461,7 +461,7 @@ function postOnProfile() {
 
                 commentsToPostOnProfile(res[i].id);
 
-                // ITEM TAKES TITLE, POST, COMMENTFIELD, AND SUBMITCOMMENT
+                // ITEM TAKES TITLE AND POST
                 item.append(title, post);
                 item.style.border = "solid 1px black";
 
@@ -513,7 +513,7 @@ function commentsToPostOnProfile(postId) {
                 commentItem.append(commenter, commentDescription);
 
                 listOfComments.append(commentItem);
-                listOfComments.style.border = "solid 1px black";
+                commentItem.style.borderTop = "dashed 1px black";
             }
             if (listOfComments){
                 post.append(listOfComments);
@@ -573,6 +573,73 @@ function userComments() {
         })
 }
 
+function setProfile() {
+    const email = document.querySelector('.add_email').value;
+    const mobile = document.querySelector('.mobile').value;
+    const address = document.querySelector('.address').value;
+
+    if (email == "" && mobile == "" && address == "") {
+        alert("Please input into fields before submitting");
+    } else if (email == "") {
+        alert("You didn't input an email!");
+    } else if (mobile == "") {
+        alert("You didn't input a mobile number!");
+    } else if (address == "") {
+        alert("You didn't input an address!");
+    }
+    
+
+    fetch('http://localhost:8080/profile', {
+        method: 'POST',
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem('user'),
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            email: email,
+            mobile: mobile,
+            address: address
+        })
+    })
+        .then((res) => {
+            alert('You have made a profile!');
+            getProfile();
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
+function getProfile() {
+    fetch('http://localhost:8080/profile', {
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem('user'),
+            "Content-Type": "application/json"
+        }
+    })
+        .then((res) => {
+            return (res.json());
+        })
+        .then((res) => {
+            const inputContainer = document.querySelector(".profileInfo");
+
+            const userEmail = document.createElement('p');
+            userEmail.innerText = "Email: " + res.email;
+
+            const userMobile = document.createElement('p');
+            userMobile.innerText = "Mobile: " + res.mobile;
+
+            const userAddress = document.createElement('p');
+            userAddress.innerText = "Address: " + res.address;
+
+            inputContainer.append(userEmail, userMobile, userAddress);
+
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
 
 
 
@@ -581,7 +648,6 @@ function userComments() {
 
 /*
 OUR PROBLEMS RIGHT NOW:
-- UPDATE PROFILE
 - Make profile page that shows the user's info
 - Show the users posts in their profile
 */
