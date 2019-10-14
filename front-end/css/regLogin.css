@@ -58,14 +58,13 @@ label {
     font-family: 'Courier New', Courier, monospace;
     display: flex;
     flex-direction: row;
-    justify-content: center;
     padding-bottom: .5rem;
     background: rgba(0,0,0,0.4);
     border: 5px solid rgba(0,0,0,0.1);
     border-radius: 10px;
-    margin-left: 100px;
-    margin-top: 10%;
-    align-items: center;
+    /* margin-left: 100px;
+    margin-top: 10%; */
+    margin: 10% auto;
     justify-content: space-between;
     width: 1000px;
 }
@@ -83,4 +82,15 @@ width: 400px;
 
 .loginSubmit{
   display: block;
+}
+
+footer {
+  text-align: center;    
+  font-family: 'Courier New', Courier, monospace;
+  color: white;
+  margin-top: 220px;
+  width: 100%;
+  padding: 10px;
+  font-weight: bold;
+  background-color: black;
 }

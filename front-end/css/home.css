@@ -89,3 +89,13 @@ input {
 .allPosts>div {
   padding-left: 20px;
 }
+
+footer {
+  text-align: center;    
+  font-family: 'Courier New', Courier, monospace;
+  color: white;
+  margin-top: 120px;
+  padding: 10px;
+  font-weight: bold;
+  background-color: black;
+}
