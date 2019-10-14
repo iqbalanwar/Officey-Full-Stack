@@ -275,7 +275,6 @@ function deletePost(postId) {
         //     return res.json()
         // })
         .then((res) => {
-            // WHY IS IT NOT TAKING POST ID?
             if (res.status === 200) {
                 window.location.reload(false);
                 alert("success, deleted post");
@@ -283,7 +282,7 @@ function deletePost(postId) {
                 alert("Please delete only your own posts.");
             }
         })
-        .then((error) => {
+        .catch((error) => {
             console.log(error);
         })
 }
@@ -316,7 +315,7 @@ function createComment(postId) {
             .then((res) => {
                 window.location.reload(false);
             })
-            .then((error) => {
+            .catch((error) => {
                 console.log(error);
             })
     }
@@ -383,7 +382,7 @@ function commentsToPost(postId) {
 
             post.append(listOfComments);
         })
-        .then((error) => {
+        .catch((error) => {
             console.log(error);
         })
 }
@@ -407,7 +406,7 @@ function deleteComment(commentId) {
                 alert("Please delete only your own comments.");
             }
         })
-        .then((error) => {
+        .catch((error) => {
             console.log(error);
         })
 }
@@ -447,21 +446,8 @@ function postOnProfile() {
                 title.innerText = res[i].title;
                 post.innerText = res[i].description;
                 console.log(res[i]);
-                  commentsToPost(res[i].id);
-                // commentsToPost(res[i]);
-                // seeComments(res[i].id);
 
-                // CREATE A COMMENT FORM, WITH A TEXT AREA, SUBMIT AND DELETE BUTTONS
-                //const commentForm = document.createElement('form');
-                // const commentField = document.createElement('textarea');
-                // commentField.classList.add("commentField");
-                // const submitComment = document.createElement('button');
-                // submitComment.classList.add("submitComment");
-                // submitComment.innerText = "Comment";
-                // submitComment.addEventListener('click', function () {
-                //     event.preventDefault();
-                //     createComment(event.target.parentNode.getAttribute('id'));
-                // });
+                commentsToPost(res[i].id);
 
                 // ITEM TAKES TITLE, POST, COMMENTFIELD, AND SUBMITCOMMENT
                 item.append(title, post);
@@ -482,7 +468,6 @@ function commentsToPostOnProfile(postId) {
         }
     })
         .then((res) => {
-            //console.log(res);
             return res.json();
         })
         .then((res) => {
@@ -534,8 +519,7 @@ function commentsToPostOnProfile(postId) {
 
 /*
 OUR PROBLEMS RIGHT NOW:
-
-- UPDATE PROFILE (which is just the mobile #)
+- UPDATE PROFILE
 
 BONUS:
 - Make profile page that shows the user's info
